@@ -1,0 +1,351 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Ruleta Familiar - Icon Reference",
+  "description": "Referencia completa de todos los iconos disponibles para diferentes plataformas",
+  "version": "1.0.0",
+  "updated": "2025-12-19",
+  "platforms": {
+    "web": {
+      "description": "Iconos para navegadores web y PWA",
+      "icons": [
+        {
+          "src": "/icons/icon-16x16.png",
+          "sizes": "16x16",
+          "type": "image/png",
+          "purpose": "favicon"
+        },
+        {
+          "src": "/icons/icon-32x32.png",
+          "sizes": "32x32",
+          "type": "image/png",
+          "purpose": "favicon"
+        },
+        {
+          "src": "/icons/icon-48x48.png",
+          "sizes": "48x48",
+          "type": "image/png",
+          "purpose": "favicon"
+        },
+        {
+          "src": "/icons/icon-72x72.png",
+          "sizes": "72x72",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "/icons/icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "/icons/icon-128x128.png",
+          "sizes": "128x128",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "/icons/icon-144x144.png",
+          "sizes": "144x144",
+          "type": "image/png",
+          "purpose": "any windows-tile"
+        },
+        {
+          "src": "/icons/icon-152x152.png",
+          "sizes": "152x152",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any maskable"
+        },
+        {
+          "src": "/icons/icon-256x256.png",
+          "sizes": "256x256",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "/icons/icon-384x384.png",
+          "sizes": "384x384",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "/icons/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any maskable"
+        }
+      ]
+    },
+    "android": {
+      "description": "Iconos específicos para Android (launcher icons)",
+      "icons": [
+        {
+          "src": "/android/android-launchericon-48-48.png",
+          "sizes": "48x48",
+          "type": "image/png",
+          "density": "mdpi"
+        },
+        {
+          "src": "/android/android-launchericon-72-72.png",
+          "sizes": "72x72",
+          "type": "image/png",
+          "density": "hdpi"
+        },
+        {
+          "src": "/android/android-launchericon-96-96.png",
+          "sizes": "96x96",
+          "type": "image/png",
+          "density": "xhdpi"
+        },
+        {
+          "src": "/android/android-launchericon-144-144.png",
+          "sizes": "144x144",
+          "type": "image/png",
+          "density": "xxhdpi"
+        },
+        {
+          "src": "/android/android-launchericon-192-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "density": "xxxhdpi"
+        },
+        {
+          "src": "/android/android-launchericon-512-512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "density": "xxxhdpi",
+          "purpose": "play-store"
+        }
+      ]
+    },
+    "ios": {
+      "description": "Iconos específicos para iOS/iPadOS",
+      "icons": [
+        {
+          "src": "/ios/16.png",
+          "sizes": "16x16",
+          "purpose": "notification"
+        },
+        {
+          "src": "/ios/20.png",
+          "sizes": "20x20",
+          "purpose": "notification"
+        },
+        {
+          "src": "/ios/29.png",
+          "sizes": "29x29",
+          "purpose": "settings"
+        },
+        {
+          "src": "/ios/32.png",
+          "sizes": "32x32",
+          "purpose": "notification"
+        },
+        {
+          "src": "/ios/40.png",
+          "sizes": "40x40",
+          "purpose": "spotlight"
+        },
+        {
+          "src": "/ios/50.png",
+          "sizes": "50x50",
+          "purpose": "spotlight"
+        },
+        {
+          "src": "/ios/57.png",
+          "sizes": "57x57",
+          "purpose": "home-screen"
+        },
+        {
+          "src": "/ios/58.png",
+          "sizes": "58x58",
+          "purpose": "settings"
+        },
+        {
+          "src": "/ios/60.png",
+          "sizes": "60x60",
+          "purpose": "spotlight"
+        },
+        {
+          "src": "/ios/64.png",
+          "sizes": "64x64",
+          "purpose": "notification"
+        },
+        {
+          "src": "/ios/72.png",
+          "sizes": "72x72",
+          "purpose": "home-screen"
+        },
+        {
+          "src": "/ios/76.png",
+          "sizes": "76x76",
+          "purpose": "ipad-home-screen"
+        },
+        {
+          "src": "/ios/80.png",
+          "sizes": "80x80",
+          "purpose": "spotlight"
+        },
+        {
+          "src": "/ios/87.png",
+          "sizes": "87x87",
+          "purpose": "settings"
+        },
+        {
+          "src": "/ios/100.png",
+          "sizes": "100x100",
+          "purpose": "spotlight"
+        },
+        {
+          "src": "/ios/114.png",
+          "sizes": "114x114",
+          "purpose": "home-screen-retina"
+        },
+        {
+          "src": "/ios/120.png",
+          "sizes": "120x120",
+          "purpose": "iphone-retina"
+        },
+        {
+          "src": "/ios/128.png",
+          "sizes": "128x128",
+          "purpose": "icon"
+        },
+        {
+          "src": "/ios/144.png",
+          "sizes": "144x144",
+          "purpose": "home-screen-retina"
+        },
+        {
+          "src": "/ios/152.png",
+          "sizes": "152x152",
+          "purpose": "ipad-retina"
+        },
+        {
+          "src": "/ios/167.png",
+          "sizes": "167x167",
+          "purpose": "ipad-pro"
+        },
+        {
+          "src": "/ios/180.png",
+          "sizes": "180x180",
+          "purpose": "iphone-plus"
+        },
+        {
+          "src": "/ios/192.png",
+          "sizes": "192x192",
+          "purpose": "icon"
+        },
+        {
+          "src": "/ios/256.png",
+          "sizes": "256x256",
+          "purpose": "icon"
+        },
+        {
+          "src": "/ios/512.png",
+          "sizes": "512x512",
+          "purpose": "icon"
+        },
+        {
+          "src": "/ios/1024.png",
+          "sizes": "1024x1024",
+          "purpose": "app-store"
+        }
+      ]
+    }
+  },
+  "notes": {
+    "maskable": "Los iconos 192x192 y 512x512 deben tener safe zone del 80% para maskable icons (PWA)",
+    "favicon": "El favicon.ico debe ser de 48x48 para mejor compatibilidad",
+    "optimization": "Todos los iconos deben estar optimizados con TinyPNG o similar",
+    "format": "Usar PNG-8 para iconos simples, PNG-24 para degradados/sombras"
+  }
+}
+    {
+      "src": "ios/57.png",
+      "sizes": "57x57"
+    },
+    {
+      "src": "ios/58.png",
+      "sizes": "58x58"
+    },
+    {
+      "src": "ios/60.png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "ios/64.png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "ios/72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "ios/76.png",
+      "sizes": "76x76"
+    },
+    {
+      "src": "ios/80.png",
+      "sizes": "80x80"
+    },
+    {
+      "src": "ios/87.png",
+      "sizes": "87x87"
+    },
+    {
+      "src": "ios/100.png",
+      "sizes": "100x100"
+    },
+    {
+      "src": "ios/114.png",
+      "sizes": "114x114"
+    },
+    {
+      "src": "ios/120.png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "ios/128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "ios/144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "ios/152.png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "ios/167.png",
+      "sizes": "167x167"
+    },
+    {
+      "src": "ios/180.png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "ios/192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "ios/256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "ios/512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "ios/1024.png",
+      "sizes": "1024x1024"
+    }
+  ]
+}
