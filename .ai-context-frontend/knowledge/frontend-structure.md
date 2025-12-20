@@ -123,7 +123,8 @@ src/
 │   │   ├── hud/
 │   │   │   ├── ScoreDisplay.vue
 │   │   │   ├── Timer.vue
-│   │   │   └── PlayerStatus.vue
+│   │   │   ├── PlayerStatus.vue
+│   │   │   └── VersionDisplay.vue
 │   │   │
 │   │   ├── forms/
 │   │   │   ├── Input.vue
