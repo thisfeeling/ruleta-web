@@ -7,6 +7,12 @@
 
 ## 📋 Índice Rápido
 
+### [📚 LLM.txt's](llms/) - llms.txt de las tecnologias
+- **[DaisyUI 5](llms/daisy-llms.txt)** - Framework css utilitario basado en Tailwind CSS
+- **[Vue 3 intro](llms/vue-llms.txt)** - Framework frontend JavaScript
+- **[Vue 3 full](llms/vue-llms-full.txt)** - Framework frontend JavaScript
+- **[Tailwind 4 CSS](llms/tailwind-llms.txt)** - Framework CSS utilitario
+
 ### [🎯 Goals](goals/) - Objetivos del Proyecto
 
 - **[Project Overview](goals/project-overview.md)** - Concepto, audiencia, filosofía
