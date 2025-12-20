@@ -37,8 +37,36 @@ enum ShowPhase: string
     case ROPE = 'rope';
     case ROULETTE = 'roulette';
     case WINNER = 'winner';
+
+    // Bonus games (optional, supervisor-triggered)
+    case BONUS_WORD_SEARCH = 'bonus_word_search';
+    case BONUS_FLAPPY = 'bonus_flappy';
 }
 ```
+
+### Bonus Games (Opcionales)
+
+Los juegos bonus NO forman parte del flujo principal. Son activados manualmente por el Supervisor entre juegos principales:
+
+```
+MAIN FLOW              BONUS (optional, anytime)
+=========              ==========================
+LOBBY
+  ↓                         ↓ (supervisor triggers)
+MILLIONAIRE  ←─────  WORD_SEARCH / FLAPPY
+  ↓                         ↓ (ends, returns to main flow)
+SPELL
+  ↓
+...
+```
+
+**Características**:
+
+- ❌ NO eliminatorios
+- ✅ Todos participan
+- ✅ Generan puntos en scoreboard
+- ✅ Activación manual (supervisor)
+- ✅ Pueden ocurrir entre cualquier juego principal
 
 ### State Machine
 
@@ -550,6 +578,428 @@ export class RouletteVisual {
     animate()
   }
 }
+```
+
+---
+
+## Juegos Bonus
+
+### Características Generales
+
+Los juegos bonus son **opcionales** y **NO eliminatorios**. El Supervisor los activa manualmente entre juegos principales.
+
+**Propósito**:
+
+- Entretenimiento adicional
+- Generar puntos para scoreboard
+- Dar ventajas/premios
+- Aumentar tensión
+
+**Reglas compartidas**:
+
+- ✅ Todos los jugadores participan
+- ✅ Generan score (visible en scoreboard)
+- ❌ NO eliminan jugadores
+- ✅ Pueden dar ventajas futuras (opcional)
+
+---
+
+## Bonus Game 1: ¡A buscar! (Word Search)
+
+### Mecánica
+
+**Tipo**: Sopa de letras  
+**Participantes**: Todos los jugadores vivos  
+**Objetivo**: Encontrar todas las palabras ocultas en el menor tiempo  
+**Victoria**: Primer jugador en completar O más palabras en tiempo límite
+
+### Flujo
+
+```
+1. Supervisor activa el juego bonus
+2. Laravel genera grid 10×10 con 5-8 palabras
+3. Broadcast del mismo grid a todos los jugadores
+4. Jugadores buscan y seleccionan palabras
+5. Frontend valida localmente, backend confirma
+6. Primer jugador en completar todo gana
+7. Actualización de scoreboard
+8. Retorno al flujo principal
+```
+
+### Backend: Generación de Grid
+
+```php
+// app/Domain/Bonus/WordSearch/GenerateGridAction.php
+public function execute(array $words): array
+{
+    $size = 10;
+    $grid = $this->createEmptyGrid($size);
+    $placements = [];
+
+    foreach ($words as $word) {
+        $placement = $this->placeWord($grid, $word, $size);
+        if ($placement) {
+            $placements[] = $placement;
+        }
+    }
+
+    // Fill empty spaces
+    $this->fillEmptySpaces($grid);
+
+    return [
+        'grid' => $grid,
+        'placements' => $placements,
+        'words' => $words
+    ];
+}
+```
+
+### Backend: Validación
+
+```php
+// app/Domain/Bonus/WordSearch/ValidateWordAction.php
+public function execute(
+    Player $player,
+    BonusSession $session,
+    array $cellIds
+): bool {
+    // 1. Verificar que el juego esté activo
+    if (!$session->isActive()) {
+        throw new GameNotActiveException();
+    }
+
+    // 2. Validar que las celdas formen una palabra válida
+    $word = $this->validateCells($cellIds, $session->placements);
+    if (!$word) {
+        return false;
+    }
+
+    // 3. Verificar que no haya encontrado esta palabra antes
+    if ($session->hasPlayerFoundWord($player, $word)) {
+        return false;
+    }
+
+    // 4. Registrar palabra encontrada
+    $session->markWordFound($player, $word, now());
+    broadcast(new WordFound($player, $word));
+
+    // 5. Check si completó todas
+    if ($session->hasPlayerCompletedAll($player)) {
+        $this->handleCompletion($player, $session);
+    }
+
+    return true;
+}
+```
+
+### Frontend: Module Structure
+
+```
+modules/games/word-search/
+├── WordSearchScene.vue       # Main component
+├── WordSearchGrid.vue        # Interactive grid (HTML/CSS)
+├── word-search.store.ts      # Pinia store
+├── word-search.logic.ts      # Grid generation
+├── word-search.socket.ts     # WebSocket listeners
+└── word-search.types.ts      # TypeScript interfaces
+```
+
+### Frontend: Store
+
+```typescript
+// modules/games/word-search/word-search.store.ts
+export const useWordSearchStore = defineStore('wordSearch', () => {
+  const grid = ref<GridCell[]>([])
+  const words = ref<string[]>([])
+  const foundWords = ref<string[]>([])
+  const startTime = ref<number | null>(null)
+  const isActive = ref(false)
+
+  const isComplete = computed(() => {
+    return foundWords.value.length === words.value.length
+  })
+
+  function initialize(serverWords: string[], serverGrid: GridCell[]) {
+    words.value = serverWords
+    grid.value = serverGrid
+    foundWords.value = []
+    startTime.value = Date.now()
+    isActive.value = true
+  }
+
+  function selectWord(cellIds: number[]): string | null {
+    const word = validateWord(cellIds, placements.value)
+
+    if (word && !foundWords.value.includes(word)) {
+      foundWords.value.push(word)
+      markCellsAsFound(cellIds)
+
+      if (isComplete.value) {
+        submitCompletion()
+      }
+
+      return word
+    }
+
+    return null
+  }
+
+  return { grid, words, foundWords, isActive, isComplete, initialize, selectWord }
+})
+```
+
+### Scoring
+
+```php
+// Menos tiempo = más puntos
+$score = max(0, 500 - floor(($timeMs / 300000) * 500));
+```
+
+---
+
+## Bonus Game 2: No Lo Choques (Flappy Bird)
+
+### Mecánica
+
+**Tipo**: Arcade 2D (clon Flappy Bird)  
+**Participantes**: Todos los jugadores vivos  
+**Objetivo**: Sobrevivir el mayor tiempo posible sin chocar  
+**Victoria**: Jugador con tiempo de supervivencia más largo
+
+### Flujo
+
+```
+1. Supervisor activa el juego bonus
+2. Todos los jugadores cargan el juego (Phaser)
+3. Juegos corren localmente (sin sincronización de frames)
+4. Jugador choca → envía tiempo de supervivencia al backend
+5. Backend valida tiempo razonable
+6. Actualización de ranking en tiempo real
+7. Último jugador en chocar o timeout termina el juego
+8. Scoreboard actualizado, retorno al flujo principal
+```
+
+### Backend: Validación Anti-Cheat
+
+```php
+// app/Domain/Bonus/Flappy/ValidateFlappyResultAction.php
+public function execute(
+    Player $player,
+    int $survivalTimeMs,
+    int $clientTimestamp
+): bool {
+    $session = BonusSession::current();
+
+    // 1. Validar que el juego esté activo
+    if (!$session->isActive()) {
+        throw new GameNotActiveException();
+    }
+
+    // 2. Validar tiempo razonable (anti-cheat)
+    $maxReasonableTime = 300000; // 5 minutos
+
+    if ($survivalTimeMs > $maxReasonableTime) {
+        Log::warning('Suspicious flappy time', [
+            'player_id' => $player->id,
+            'time' => $survivalTimeMs
+        ]);
+
+        $survivalTimeMs = $maxReasonableTime;
+    }
+
+    if ($survivalTimeMs < 1000) {
+        // Menos de 1 segundo OK pero sin puntos
+    }
+
+    // 3. Verificar que no haya enviado antes
+    if ($session->hasPlayerSubmitted($player)) {
+        throw new DuplicateSubmissionException();
+    }
+
+    // 4. Validar timestamp
+    $serverTime = now()->timestamp;
+    $timeDiff = abs($serverTime - $clientTimestamp);
+
+    if ($timeDiff > 10) {
+        Log::warning('Flappy time mismatch', [
+            'player_id' => $player->id,
+            'diff' => $timeDiff
+        ]);
+    }
+
+    // 5. Registrar resultado
+    $session->recordResult($player, $survivalTimeMs, $serverTime);
+
+    // 6. Calcular score
+    $score = floor($survivalTimeMs / 100); // 1 punto cada 0.1s
+
+    app(ScoreboardService::class)->addBonusScore(
+        player: $player,
+        game: 'flappy',
+        score: $score,
+        metadata: ['survival_time' => $survivalTimeMs]
+    );
+
+    // 7. Broadcast
+    broadcast(new PlayerCrashedFlappy($player, $survivalTimeMs));
+
+    return true;
+}
+```
+
+### Frontend: Module Structure
+
+```
+modules/games/flappy/
+├── FlappyScene.vue           # Vue wrapper
+├── flappy.game.ts            # Phaser game instance
+├── flappy.scenes.ts          # Phaser scenes (Main, GameOver)
+├── flappy.store.ts           # Pinia store
+├── flappy.socket.ts          # WebSocket listeners
+└── flappy.logic.ts           # Scoring utils
+```
+
+### Frontend: Phaser Integration
+
+```typescript
+// modules/games/flappy/flappy.game.ts
+import Phaser from 'phaser'
+import { MainScene } from './flappy.scenes'
+
+export interface FlappyGameConfig {
+  parent: string
+  onStart: () => void
+  onCrash: (time: number) => void
+  onTimeUpdate: (time: number) => void
+}
+
+export function createFlappyGame(config: FlappyGameConfig): Phaser.Game {
+  return new Phaser.Game({
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    parent: config.parent,
+    physics: {
+      default: 'arcade',
+      arcade: {
+        gravity: { y: 1000, x: 0 },
+        debug: false,
+      },
+    },
+    scene: [new MainScene(config)],
+    backgroundColor: '#87CEEB',
+    scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+  })
+}
+```
+
+### Frontend: Vue Component Lifecycle
+
+```vue
+<!-- modules/games/flappy/FlappyScene.vue -->
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+import { createFlappyGame } from './flappy.game'
+import type Phaser from 'phaser'
+
+let game: Phaser.Game | null = null
+const elapsedTime = ref(0)
+
+onMounted(() => {
+  game = createFlappyGame({
+    parent: 'flappy-game',
+    onStart: handleStart,
+    onCrash: handleCrash,
+    onTimeUpdate: handleTimeUpdate,
+  })
+})
+
+onUnmounted(() => {
+  // CRITICAL: Destroy Phaser to prevent memory leaks
+  if (game) {
+    game.destroy(true)
+    game = null
+  }
+})
+
+function handleCrash(time: number) {
+  // Enviar resultado al backend
+  apiService.post('/bonus/flappy/result', {
+    survival_time: time,
+    timestamp: Date.now(),
+  })
+}
+</script>
+```
+
+### Scoring
+
+```php
+// Más tiempo = más puntos (lineal)
+$score = floor($survivalTimeMs / 100); // 1 punto cada 0.1 segundos
+```
+
+---
+
+## Bonus Games: Integración con Flujo Principal
+
+### Supervisor Controls
+
+```php
+// app/Actions/Supervisor/StartBonusGameAction.php
+public function execute(string $gameType): void
+{
+    // Validar que no haya juego activo
+    if (BonusSession::hasActive()) {
+        throw new \Exception('Ya hay un juego bonus activo');
+    }
+
+    // Crear sesión
+    $session = BonusSession::create([
+        'type' => $gameType,
+        'started_at' => now(),
+        'status' => 'active'
+    ]);
+
+    // Broadcast inicio
+    broadcast(new BonusGameStarted($gameType, $session->id));
+}
+```
+
+### Router Integration
+
+```typescript
+// router/index.ts (additions)
+{
+  path: '/bonus/word-search',
+  name: 'BonusWordSearch',
+  component: () => import('@/modules/games/word-search/WordSearchScene.vue'),
+  meta: { requiresAuth: true, layout: 'game' }
+},
+{
+  path: '/bonus/flappy',
+  name: 'BonusFlappy',
+  component: () => import('@/modules/games/flappy/FlappyScene.vue'),
+  meta: { requiresAuth: true, layout: 'game' }
+}
+```
+
+### State Machine (NO integrado)
+
+Los bonus games **NO** forman parte del state machine principal. Son paralelos:
+
+```
+MAIN STATE MACHINE       BONUS (separate)
+==================       ================
+MILLIONAIRE
+  (pause)         →      WORD_SEARCH
+  (wait)                 (ends)
+  (resume)        ←
+SPELL
+  ...
 ```
 
 ---
