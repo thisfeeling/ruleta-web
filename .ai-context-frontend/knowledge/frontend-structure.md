@@ -35,6 +35,7 @@ src/
 │   │   │   └── ui.store.ts        # Estado UI global
 │   │   │
 │   │   ├── composables/           # Composables reutilizables
+│   │   │   ├── useAlert.ts        # Sistema de alertas
 │   │   │   ├── useEcho.ts         # Wrapper Echo
 │   │   │   ├── useAudio.ts        # Audio helpers
 │   │   │   └── useIntensity.ts    # Cálculo intensidad
@@ -112,6 +113,9 @@ src/
 │
 ├── ui/                            # 👈 UI PURA (componentes reutilizables)
 │   ├── components/
+│   │   ├── alerts/
+│   │   │   ├── Alert.vue
+│   │   │   └── AlertContainer.vue
 │   │   ├── buttons/
 │   │   │   ├── PrimaryButton.vue
 │   │   │   └── IconButton.vue

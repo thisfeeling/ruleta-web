@@ -47,11 +47,18 @@ Plataforma web de juegos tipo "game show" donde hasta **50 jugadores** compiten 
 ### Juegos (Orden)
 
 1. **Juego del Millonario** (preguntas, eliminación masiva)
-2. **Deletréalo** (individual, audio grabado, supervisión)
-3. **La Cuerda** (grupos, visual 3D, eliminación grupal)
+2. **Deletréalo** (individual, audio grabado, supervisión, bomba 3D)
+3. **La Cuerda** (grupos, visual 3D tensión, eliminación grupal)
 4. **Millonario** (segunda ronda)
 5. **Deletréalo** (segunda ronda)
 6. **La Ruleta** (FINAL - solo 1 ganador)
+
+### Juegos Bonus (Opcionales)
+
+7. **¡A buscar!** (sopa de letras, HTML/CSS, no eliminatorio)
+8. **No Lo Choques** (Flappy Bird, Phaser 3, no eliminatorio)
+
+> **Nota**: Los bonus games son activados manualmente por el Supervisor entre juegos principales. Todos participan, generan puntos en scoreboard, pero NO eliminan jugadores.
 
 ### Stack Técnico
 
@@ -59,7 +66,7 @@ Plataforma web de juegos tipo "game show" donde hasta **50 jugadores** compiten 
 
 - **Laravel 12** (PHP 8.3)
 - **Reverb** (WebSocket nativo)
-- **PostgreSQL/MySQL** (base de datos)
+- **MySQL** (base de datos)
 - **RustFS (S3)** (almacenamiento)
 - **ElevenLabs** (TTS español colombiano)
 - **Supervisor** (gestión procesos)
@@ -70,8 +77,9 @@ Plataforma web de juegos tipo "game show" donde hasta **50 jugadores** compiten 
 - **Vite 7** (build tool)
 - **Pinia 3** (state management)
 - **Laravel Echo** (WebSocket client)
-- **Tailwind CSS 4** + **DaisyUI**
-- **Three.js** (visual 3D para La Cuerda)
+- **Tailwind CSS 4** + **DaisyUI 5**
+- **Three.js 0.182** + **tresjs-vue** (visual 3D para Cuerda y Bomba)
+- **Phaser 3.80** (juego Flappy Bird bonus)
 
 #### Deployment
 
@@ -125,36 +133,127 @@ Laravel Echo (cliente JS)
 
 ---
 
+## Sistemas Clave
+
+### Sistema de Puntuación Unificado (Scoreboard)
+
+El sistema de puntuación agrega puntos de todos los juegos (main + bonus) en un ranking global:
+
+- **Base de datos**: Tabla `player_scores` con normalización 0-1000
+- **Normalizaciones por juego**:
+  - Millonario: % respuestas correctas × 1000
+  - Deletréalo: 600 (sobrevivir) + 200 (deletrear correctamente)
+  - La Cuerda: 600 (ganar grupo) + bono por contribución
+  - La Ruleta: 2000 (ganador) o consolación por posición
+  - ¡A buscar!: (1 - tiempo/maxTiempo) × 500
+  - No Lo Choques: tiempoSobrevivido / 100
+- **Tiempo real**: WebSocket con eventos `ScoreAdded`, `ScoreboardUpdated`
+- **UI**: Componente completo `Scoreboard.vue` + compacto `ScoreboardCompact.vue` (HUD)
+
+**Documentación**: [knowledge/scoreboard-system.md](knowledge/scoreboard-system.md)
+
+### Arquitectura de Audio Producción
+
+Sistema de audio con 3 canales independientes, preload, y cola de reproducción:
+
+- **Canales**: Music (0.6), SFX (0.8), Voice (1.0) con control de volumen independiente
+- **Preload**: Assets críticos (click, tick, explode) al inicio
+- **Cola de voz**: Reproducción secuencial para evitar superposición de narración
+- **Integración**: Backend URLs firmadas via Reverb, sync con Three.js via AudioContext
+- **Assets organizados**:
+  - `assets/audio/music/` - temas de fondo
+  - `assets/audio/voices/countdown/` - cuenta regresiva TTS
+  - `assets/audio/sfx/ui/` - clicks, transiciones
+  - `assets/audio/sfx/rope/` - tensión, snap
+  - `assets/audio/sfx/roulette/` - spin, stop
+  - `assets/audio/sfx/bomb/` - ticking, explosion
+  - `assets/audio/sfx/results/` - victory, defeat
+
+**Documentación**: [knowledge/audio-system.md](knowledge/audio-system.md)
+
+### Visualizaciones Three.js
+
+Rendering 3D visual-only (no lógica de juego) para dos juegos:
+
+- **RopeVisual** (La Cuerda): 
+  - Renderer WebGPU con fallback WebGL
+  - Cuerda 3D que se mueve horizontalmente según tensión (-1 a 1)
+  - Marcador central rojo pulsante
+  - Interpolación suave con lerp
+  - ~250 líneas de código
+  
+- **BombVisual** (Deletréalo):
+  - Esfera que se infla de 1× a 3.5× según tiempo restante
+  - Sistema de partículas (500) para explosión
+  - Intensidad emissive aumenta con peligro
+  - Animación de pulso y rotación
+  - ~200 líneas de código
+
+**Lifecycle crítico**: `onMounted()` → create, `onUnmounted()` → destroy() para evitar memory leaks
+
+**Documentación**: [knowledge/threejs-visuals.md](knowledge/threejs-visuals.md)
+
+---
+
 ## 📂 Estructura Frontend (Vue 3)
 
 ```
 src/
 ├── app/                    # Entry point, router
 ├── assets/                 # Estilos, imágenes, audio
+│   └── audio/              # Sistema de audio organizado
+│       ├── music/          # Temas de fondo por escena
+│       ├── voices/         # Narraciones TTS (countdown, etc)
+│       └── sfx/            # Efectos de sonido
+│           ├── ui/         # Clicks, transiciones
+│           ├── rope/       # Tensión, snap
+│           ├── bomb/       # Ticking, explosion
+│           ├── roulette/   # Spin, stop
+│           └── results/    # Victory, defeat
 ├── modules/
 │   ├── core/               # Infraestructura (services, stores base)
 │   │   ├── services/
 │   │   │   ├── echo.service.ts      👈 Cliente WebSocket
-│   │   │   ├── audio.service.ts     👈 Reproducción audio
+│   │   │   ├── audio.service.ts     👈 Sistema audio producción (3 canales)
 │   │   │   └── api.service.ts       👈 Cliente HTTP
 │   │   ├── stores/                   # Auth, UI global
 │   │   └── composables/              # Reutilizables
+│   │       └── useAudio.ts          👈 Wrapper audio con lifecycle
 │   │
 │   ├── game/               # Orquestador del show
 │   │   ├── stores/                   # Estado global juego
 │   │   ├── engine/
-│   │   │   └── state-machine.ts     👈 Flujo juegos
-│   │   └── scenes/                   # Lobby, Winner
+│   │   │   └── state-machine.ts     👈 Flujo juegos (con estados bonus)
+│   │   ├── scenes/                   # Lobby, Winner, Transition
+│   │   └── scoreboard/              👈 Sistema puntuación unificado
+│   │       ├── scoreboard.store.ts   # Pinia store rankings
+│   │       ├── scoreboard.types.ts   # Tipos TypeScript
+│   │       ├── scoreboard.logic.ts   # Normalización puntos
+│   │       ├── scoreboard.socket.ts  # WebSocket listeners
+│   │       └── Scoreboard.vue        # UI completa + compacta
 │   │
 │   ├── games/              # Cada juego es un módulo
 │   │   ├── millionaire/
 │   │   ├── rope/
-│   │   │   └── rope.visual.ts       👈 Three.js aquí
+│   │   │   └── rope.visual.ts       👈 Three.js visual tensión 3D
 │   │   ├── spell/
-│   │   └── roulette/
+│   │   │   └── spell.visual.ts      👈 Three.js bomba inflando + explosión
+│   │   ├── roulette/
+│   │   ├── word-search/             👈 NUEVO: Bonus sopa de letras
+│   │   │   ├── WordSearchScene.vue   # Escena principal
+│   │   │   ├── WordSearchGrid.vue    # Grid HTML/CSS
+│   │   │   ├── word-search.store.ts  # Pinia store
+│   │   │   ├── word-search.logic.ts  # Generación/validación
+│   │   │   └── word-search.socket.ts # WebSocket listeners
+│   │   └── flappy/                  👈 NUEVO: Bonus Flappy Bird
+│   │       ├── FlappyScene.vue       # Escena principal
+│   │       ├── flappy.game.ts        # Setup Phaser
+│   │       ├── flappy.scenes.ts      # MainScene Phaser
+│   │       ├── flappy.store.ts       # Pinia store
+│   │       └── flappy.socket.ts      # WebSocket listeners
 │   │
 │   ├── player/             # Sistema jugadores
-│   ├── supervisor/         # Dashboard supervisión
+│   ├── supervisor/         # Dashboard supervisión (con controles bonus)
 │   └── chat/               # Chat tiempo real
 │
 ├── ui/                     # Componentes reutilizables
@@ -179,15 +278,22 @@ src/
 ### Canal Global (`game.show`)
 
 - `PlayerJoined` - Jugador entra
-- `PlayerEliminated` - Jugador eliminado
+- `PlayerEliminated` - Jugador eliminado (incluye audio_url de narración TTS)
 - `PlayerPassed` - Jugador avanza
 - `GameStarted` - Nuevo juego inicia
 - `ScreenChanged` - Pantalla transición
-- `AudioRequested` - Reproducir audio
+- `AudioRequested` - Reproducir audio (música, SFX, voz)
+- `ScoreAdded` - Puntos agregados al scoreboard
+- `ScoreboardUpdated` - Ranking actualizado
 
 ### Por Juego
 
 - **Millonario**: `QuestionReceived`, `AnswerResult`
+- **Deletréalo**: `WordStarted`, `LetterResult`, `BombExploded`
+- **La Cuerda**: `RoundStarted`, `TensionUpdated`, `RopeSnapped`
+- **La Ruleta**: `SpinStarted`, `SpinResult`
+- **¡A buscar!**: `GridGenerated`, `WordFound`, `GameCompleted`
+- **No Lo Choques**: `GameStarted`, `GameEnded`, `ScoreSubmitted`
 - **Rope**: `RopeStateUpdated`, `GroupEliminated`
 - **Spell**: `PlayerSelected`, `AudioValidated`
 - **Roulette**: `ScoreUpdated`, `WinnerDeclared`
