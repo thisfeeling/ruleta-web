@@ -5,7 +5,7 @@
 ### Framework Core
 
 - **Laravel 12**: Framework PHP moderno
-- **PHP 8.3**: Runtime
+- **PHP 8.4**: Runtime
 - **Composer 2**: Gestión de dependencias
 
 ### WebSockets
@@ -178,10 +178,10 @@
 
 ### Base Images
 
-- **Laravel**: `php:8.3-fpm`
-- **Vue**: `node:20-alpine` + `nginx:alpine`
+- **Laravel**: `php:8.4-fpm`
+- **Vue**: `node:22-alpine` + `nginx:alpine`
 - **Redis**: `redis:alpine`
-- **Database**: `postgres:16` o `mysql:8`
+- **Database**: `mariadb:11` o `mysql:11`
 
 ### Process Manager
 
@@ -331,13 +331,13 @@ VITE_REVERB_SCHEME=https
 │  ├─ Vue Router                          │
 │  ├─ Laravel Echo (WS client)            │
 │  ├─ Axios (HTTP)                        │
-│  ├─ Three.js (3D)                       │
-│  └─ Tailwind CSS + DaisyUI             │
+│  ├─ Tres.js + Three.js (3D)             │
+│  └─ Tailwind CSS + DaisyUI              │
 └─────────────────────────────────────────┘
                  ↕ WSS + HTTPS
 ┌─────────────────────────────────────────┐
 │  BACKEND (Laravel 12)                   │
-│  ├─ PHP 8.3                             │
+│  ├─ PHP 8.4                             │
 │  ├─ Reverb (WS server)                  │
 │  ├─ PostgreSQL/MySQL                    │
 │  ├─ Redis (opcional)                    │
