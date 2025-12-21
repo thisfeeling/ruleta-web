@@ -92,7 +92,7 @@ InstructionsSystem
           </div>
 
           <!-- Slide Content -->
-          <div class="relative min-h-[400px] p-8">
+          <div class="relative min-h-400px p-8">
             <TransitionGroup name="slide" mode="out-in">
               <InstructionSlide
                 v-for="(slide, index) in instructionsStore.slides"

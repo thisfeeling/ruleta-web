@@ -718,7 +718,7 @@ Actualizar `Alert.vue` para soportar variant `achievement`:
 
 <style scoped>
 .alert-achievement {
-  @apply bg-gradient-to-r from-yellow-500 to-amber-600 text-white;
+  @apply bg-linear-to-r from-yellow-500 to-amber-600 text-white;
   @apply border-2 border-yellow-300 shadow-2xl;
   animation:
     achievement-slide-in 0.5s ease-out,
