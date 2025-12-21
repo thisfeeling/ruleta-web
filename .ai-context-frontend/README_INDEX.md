@@ -44,7 +44,37 @@
 - **[Bonus Games](knowledge/bonus-games.md)** - Word Search y Flappy Bird no eliminatorios
 - **[Alert System](knowledge/alert-system.md)** - Sistema de alertas completo
 
-### [📖 Rules](rules/) - Reglas de Implementación
+### [�️ Implementation](implementation/) - Guías de Implementación Paso a Paso
+
+**Status Legend**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+
+#### Core Systems
+
+- **[01 - Project Setup](implementation/01-project-setup.md)** - Configuración inicial Vue 3 + Vite + TypeScript [ ]
+- **[02 - Core Services](implementation/02-core-services.md)** - API, Echo, Audio, Storage services [ ]
+- **[03 - Core Stores](implementation/03-core-stores.md)** - Auth, UI, Session stores (Pinia) [ ]
+- **[04 - Router & i18n](implementation/04-router-i18n.md)** - Vue Router + vue-i18n setup [ ]
+
+#### Player System
+
+- **[05 - Player System](implementation/05-player-system.md)** - Join, Reconnect, PlayerCard, PlayerHUB [ ]
+
+#### Game Engine
+
+- **[06 - Game State Machine](implementation/06-game-state-machine.md)** - Flow control, scenes, eliminations [ ]
+- **[14 - Scoreboard System](implementation/14-scoreboard-system.md)** - Unified scoring, rankings [ ]
+
+#### Juegos Principales
+
+- **[07 - Millionaire Game](implementation/07-millionaire-game.md)** - Preguntas y respuestas [ ]
+- **[08-13 - All Games](implementation/08-13-all-games.md)** - Rope, Spell, Roulette, Word Search, Flappy [ ]
+
+#### UI & Components
+
+- **[15 - UI Components](implementation/15-ui-components.md)** - Alerts, Buttons, Forms, HUD, Modals, Layouts [ ]
+- **[16 - Chat & Supervisor](implementation/16-chat-supervisor.md)** - Chat system, Supervisor panel, Achievements [ ]
+
+### [�📖 Rules](rules/) - Reglas de Implementación
 
 - **Game Flow** - State machine del show completo
 - **Elimination Math** - Lógica de eliminaciones dinámicas

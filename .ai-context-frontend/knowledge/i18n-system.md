@@ -23,12 +23,8 @@ Sistema completo de internacionalización utilizando **vue-i18n** para soportar 
 ### Instalar dependencia
 
 ```bash
-npm install vue-i18n@9
+npm install vue-i18n@11
 ```
-
-### Versión recomendada
-
-- **vue-i18n:** 9.x (compatible con Vue 3.5 Composition API)
 
 ---
 

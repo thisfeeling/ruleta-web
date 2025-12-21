@@ -1,6 +1,6 @@
 # Frontend Structure
 
-## Estructura de Carpetas Completa
+## Estructura de Carpetas InCompleta , en implementation/xx-xx-xx-xx.md hay más detalles
 
 ```
 src/
@@ -10,13 +10,24 @@ src/
 │   └── router/
 │       └── index.ts               # Configuración rutas
 │
+├── locales/
+│   ├── en-US.json                 # Traducciones inglés
+│   └── es-CO.json                 # Traducciones español                
+│
 ├── assets/
 │   ├── styles/
 │   │   ├── base.css               # Estilos base
 │   │   └── main.css               # Estilos principales
 │   ├── images/                    # Imágenes estáticas
+│   │   ├── backgrounds/           # Fondos
+│   │   └── icons/                 # Iconos
 │   └── audio/                     # Audio assets
-│       ├── ambience/              # Sonido ambiente
+│       ├── sfx/                   # Sonidos 
+│       │   ├── ui/          
+│       │   ├── bomb/        
+│       │   ├── rope/          
+│       │   ├── roulette/
+│       │   └── results/
 │       ├── music/                 # Música de fondo
 │       └── voices/                # Voces pre-generadas
 │
@@ -77,7 +88,7 @@ src/
 │   │   │   ├── rope.store.ts
 │   │   │   ├── rope.logic.ts
 │   │   │   ├── rope.socket.ts
-│   │   │   └── rope.visual.ts      # 👈 Three.js aquí
+│   │   │   └── rope.visual.ts      # Tres.js Three.js aquí
 │   │   │
 │   │   ├── spell/
 │   │   │   ├── SpellScene.vue
@@ -85,6 +96,23 @@ src/
 │   │   │   ├── spell.logic.ts
 │   │   │   ├── spell.socket.ts
 │   │   │   └── spell.recorder.ts   # Audio recording
+│   │   │
+│   │   ├── flappy/ # Bonus Game (phaser)
+│   │   │   ├── FlappyScene.vue
+│   │   │   ├── flappy.game.ts
+│   │   │   ├── flappy.logic.ts
+│   │   │   ├── flappy.store.ts
+│   │   │   ├── flappy.socket.ts
+│   │   │   ├── flappy.audio.ts
+│   │   │   └── flappy.types.ts
+│   │   │ 
+│   │   ├── word-search/ # Bonus Game
+│   │   │   ├── WordSearchScene.vue
+│   │   │   ├── word-search.logic.ts
+│   │   │   ├── word-search.store.ts
+│   │   │   ├── word-search.socket.ts
+│   │   │   ├── word-search.audio.ts
+│   │   │   └── word-search.types.ts
 │   │   │
 │   │   └── roulette/
 │   │       ├── RouletteScene.vue
@@ -150,6 +178,7 @@ src/
 │
 └── plugins/
     ├── axios.ts                   # Configuración Axios
+    ├── i18n.ts                    # Internacionalización
     └── pinia.ts                   # Configuración Pinia
 ```
 

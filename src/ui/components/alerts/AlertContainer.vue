@@ -1,14 +1,31 @@
 <template>
   <teleport to="body">
-    <div class="alert-overlay fixed bottom-20 right-4 flex flex-col gap-10 max-w-sm pb-10" style="z-index: 9999999">
+    <div
+      class="alert-overlay fixed bottom-20 right-4 flex flex-col gap-10 max-w-sm pb-10"
+      style="z-index: 9999999"
+    >
       <transition-group name="alert" tag="div">
-        <Alert v-for="a in alerts" :key="a.id" :class="a.origin ? 'alert-origin-' + a.origin : ''" :type="a.type"
-          :message="a.message" :title="a.title" :closable="true" :vertical="a.vertical" @close="dismissAlert(a.id)"
-          @pause="onPause(a.id)" @resume="onResume(a.id)">
+        <Alert
+          v-for="a in alerts"
+          :key="a.id"
+          :class="a.origin ? 'alert-origin-' + a.origin : ''"
+          :type="a.type"
+          :message="a.message"
+          :title="a.title"
+          :closable="true"
+          :vertical="a.vertical"
+          @close="dismissAlert(a.id)"
+          @pause="onPause(a.id)"
+          @resume="onResume(a.id)"
+        >
           <template #actions>
             <div v-if="a.actions" class="flex gap-2">
-              <button v-for="(btn, idx) in a.actions" :key="idx" @click="onAction(a.id, idx, btn)"
-                :class="btn.class || 'btn btn-xs btn-ghost'">
+              <button
+                v-for="(btn, idx) in a.actions"
+                :key="idx"
+                @click="onAction(a.id, idx, btn)"
+                :class="btn.class || 'btn btn-xs btn-ghost'"
+              >
                 {{ btn.label }}
               </button>
             </div>
@@ -21,7 +38,7 @@
 
 <script setup lang="ts">
 import { useAlert, useGlobalAlerts } from '@/modules/core/composables/useAlert'
-import Alert from '@/ui/components/alerts/Alert.vue'
+import Alert from '@/ui/components/alerts/AlertItem.vue'
 
 const { dismissAlert, pauseAutoDismiss, resumeAutoDismiss } = useAlert()
 const { alerts } = useGlobalAlerts()
@@ -90,7 +107,7 @@ const onResume = (id: number) => {
 }
 
 /* Stagger children for a nicer effect */
-.alert-enter-active>* {
+.alert-enter-active > * {
   transition-delay: 0.05s;
 }
 
@@ -106,7 +123,7 @@ const onResume = (id: number) => {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-.alert-overlay>* {
+.alert-overlay > * {
   pointer-events: auto;
   /* each alert can be interactive */
 }
