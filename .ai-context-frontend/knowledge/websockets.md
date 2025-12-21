@@ -401,6 +401,111 @@ const { channel } = useMillionaireSocket()
 | `ChatMessageSent` | `{ player_id, message, timestamp }` | Mensaje de chat    |
 | `PlayerMuted`     | `{ player_id }`                     | Jugador silenciado |
 
+### Eventos de Achievements
+
+| Evento                | Payload                                                       | Descripción                  |
+| --------------------- | ------------------------------------------------------------- | ---------------------------- |
+| `AchievementUnlocked` | `{ player_id, achievement_id, name, description, timestamp }` | Logro desbloqueado           |
+| `AchievementProgress` | `{ player_id, achievement_id, progress, target }`             | Progreso en logro progresivo |
+
+### Eventos de Instrucciones
+
+| Evento                  | Payload                                                         | Descripción                    |
+| ----------------------- | --------------------------------------------------------------- | ------------------------------ |
+| `InstructionsRequired`  | `{ session_id, game_type, slides, forced, version, timestamp }` | Instrucciones pre-juego        |
+| `InstructionsCompleted` | `{ player_id, player_name, timestamp }`                         | Jugador completó instrucciones |
+
+### Eventos de Audio/Música
+
+| Evento          | Payload                                                | Descripción             |
+| --------------- | ------------------------------------------------------ | ----------------------- |
+| `TrackStarted`  | `{ track: AudioTrack, session_id, timestamp }`         | Pista de audio comenzó  |
+| `TrackEnded`    | `{ track_id, session_id, played_duration, timestamp }` | Pista de audio terminó  |
+| `VolumeChanged` | `{ type: AudioType, volume, timestamp }`               | Volumen de canal cambió |
+
+### Eventos de Auditoría
+
+| Evento            | Payload                                          | Descripción                 |
+| ----------------- | ------------------------------------------------ | --------------------------- |
+| `AuditLogCreated` | `{ type, action, user_id, metadata, timestamp }` | Nuevo registro de auditoría |
+
+### Payloads Detallados
+
+#### AchievementUnlocked
+
+```typescript
+interface AchievementUnlockedPayload {
+  playerId: string
+  achievementId: string
+  achievement: {
+    name: string
+    description: string
+    icon: string
+    rarity: 'common' | 'rare' | 'epic' | 'legendary'
+    points: number
+  }
+  sessionId: string
+  roundId?: string
+  timestamp: number
+}
+```
+
+#### InstructionsRequired
+
+```typescript
+interface InstructionsRequiredPayload {
+  sessionId: string
+  gameType: 'millionaire' | 'rope' | 'spell' | 'roulette' | 'word-search' | 'flappy'
+  slides: InstructionSlide[]
+  forced: boolean // true si el supervisor forzó mostrar
+  version: string // Para invalidar cache
+  timestamp: number
+}
+
+interface InstructionSlide {
+  title: string // i18n key
+  description: string // i18n key
+  items?: string[] // Lista de puntos
+  tip?: string // Consejo opcional
+  media?: {
+    type: 'image' | 'gif' | 'video'
+    url: string
+  }
+}
+```
+
+#### TrackStarted
+
+```typescript
+interface TrackStartedPayload {
+  track: {
+    id: string
+    name: string
+    artist?: string
+    type: 'soundtrack' | 'effect' | 'voice' | 'ambience'
+    url: string
+    artwork?: string
+    duration: number // segundos
+    volume: number // 0.0 - 1.0
+  }
+  sessionId: string
+  timestamp: number
+}
+```
+
+#### AuditLogCreated
+
+```typescript
+interface AuditLogCreatedPayload {
+  type: 'game' | 'player' | 'supervisor' | 'system'
+  action: string // 'player_eliminated', 'achievement_unlocked', etc.
+  userId?: string
+  sessionId?: string
+  metadata: Record<string, any>
+  timestamp: number
+}
+```
+
 ## Autenticación de Canales
 
 ### Backend (routes/channels.php)

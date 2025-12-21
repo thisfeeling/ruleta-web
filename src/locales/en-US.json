@@ -1,0 +1,392 @@
+{
+  "narrator": {
+    "welcome": "Hey there! Welcome to Ruleta Familiar",
+    "welcomeLong": "Awesome to have you here! Get ready for an exciting show",
+    "gameStart": "This is getting intense! Ready for the challenge?",
+    "gameStartIntense": "Here we go! Let the show begin",
+    "roundStart": "Oh boy, it's getting tough! Round {roundNumber} begins",
+    "roundEnd": "What a show! Round {roundNumber} completed",
+    "elimination": "Oh no, {playerName}! You've been eliminated",
+    "eliminationMultiple": "Uh oh! {count} players have been eliminated",
+    "winner": "Nice job! {playerName} takes the victory",
+    "countdown": "Starting in {seconds} seconds!",
+    "countdown3": "Three!",
+    "countdown2": "Two!",
+    "countdown1": "One!",
+    "countdownGo": "Go!",
+    "hurryUp": "Hurry up, time is running out!",
+    "timeUp": "Time's up!",
+    "lastMinute": "Last minute, hurry!",
+    "wellDone": "Well done, {playerName}!",
+    "tryAgain": "Come on, try again!",
+    "almostThere": "Almost there!",
+    "perfect": "Perfect!",
+    "oops": "Oops!",
+    "thatsIt": "That's it!",
+    "letsGo": "Let's go!",
+    "incredible": "Incredible!",
+    "amazing": "Amazing!"
+  },
+  "games": {
+    "millionaire": {
+      "title": "Millionaire",
+      "description": "Answer questions before time runs out",
+      "subtitle": "Show off your general knowledge",
+      "jokerUsed": "50:50 Joker activated!",
+      "jokerNotAvailable": "No jokers available",
+      "correctAnswer": "Correct!",
+      "wrongAnswer": "Wrong answer!",
+      "timeWarning": "Hurry, time's running out!",
+      "questionNumber": "Question {current} of {total}",
+      "pointsEarned": "{points} points!",
+      "instructions": {
+        "slide1": {
+          "title": "Welcome to Millionaire",
+          "description": "Answer 10 trivia questions in 3 minutes. Time is ticking!"
+        },
+        "slide2": {
+          "title": "How to Play?",
+          "description": "Read the question and select one of the 4 options. Be quick but accurate.",
+          "item1": "10 questions in 3 minutes",
+          "item2": "Each correct answer adds points",
+          "item3": "Players with lowest scores are eliminated"
+        },
+        "slide3": {
+          "title": "50:50 Joker",
+          "description": "Remove two incorrect options if you're stuck.",
+          "item1": "Eliminates 2 wrong answers",
+          "item2": "Maximum 4 uses per game",
+          "tip": "Use it wisely! Once spent, it's gone."
+        }
+      }
+    },
+    "rope": {
+      "title": "Tug of War",
+      "description": "Compete in teams pulling the virtual rope",
+      "subtitle": "Team battle with clicking power",
+      "teamFormed": "Team {teamName} formed!",
+      "teamName": "Team name",
+      "voteForName": "Vote for team name",
+      "battleStart": "Battle begins between {team1} and {team2}!",
+      "victory": "{teamName} won the duel!",
+      "clickFaster": "Click faster!",
+      "yourTurn": "Your turn to pull!",
+      "tension": "Tension",
+      "instructions": {
+        "slide1": {
+          "title": "Tug of War",
+          "description": "Form teams and compete in click battles. May the fastest win!"
+        },
+        "slide2": {
+          "title": "Team Formation",
+          "description": "Organize into groups of 5 players and vote for a name.",
+          "item1": "Groups of 5 players",
+          "item2": "Vote for team name",
+          "item3": "One-on-one duels"
+        },
+        "slide3": {
+          "title": "Let's Pull!",
+          "description": "Click as fast as possible to win the duel.",
+          "tip": "Watch out! Spam clicking will disqualify you."
+        }
+      }
+    },
+    "spell": {
+      "title": "Spelling Bomb",
+      "description": "Spell the word correctly before it explodes",
+      "subtitle": "Memorize and type without errors",
+      "wordShown": "Memorize this word: {word}",
+      "typeNow": "Type now!",
+      "correctSpelling": "Perfect!",
+      "wrongSpelling": "Oops, wrong spelling!",
+      "explosion": "Boom! The bomb exploded",
+      "timeRemaining": "Time: {seconds}s",
+      "letterCorrect": "✓",
+      "letterWrong": "✗",
+      "instructions": {
+        "slide1": {
+          "title": "Spelling Bomb",
+          "description": "Memorize and spell words before time runs out. Watch the bomb!"
+        },
+        "slide2": {
+          "title": "How Does It Work?",
+          "description": "You have 5 seconds to memorize the word, then type it.",
+          "item1": "Memorize word in 5 seconds",
+          "item2": "Type letter by letter",
+          "item3": "No autocorrect, no delete"
+        },
+        "slide3": {
+          "title": "Beware the Bomb",
+          "description": "If you take too long or make mistakes, it explodes.",
+          "tip": "Type fast but accurately!"
+        }
+      }
+    },
+    "roulette": {
+      "title": "Roulette",
+      "description": "Answer questions from random categories",
+      "subtitle": "The wheel decides your fate",
+      "categorySpun": "The roulette landed on {category}!",
+      "questionTime": "Question from {category}",
+      "spinning": "Spinning the wheel!",
+      "category": "Category",
+      "instructions": {
+        "slide1": {
+          "title": "Question Roulette",
+          "description": "The roulette decides the category each round. Prepare for anything!"
+        },
+        "slide2": {
+          "title": "Dynamics",
+          "description": "Each round has a different category, selected at random.",
+          "item1": "Random category per round",
+          "item2": "Answer quickly to score points",
+          "item3": "Slow players get eliminated"
+        }
+      }
+    },
+    "wordSearch": {
+      "title": "Word Search",
+      "description": "Find all hidden words",
+      "subtitle": "Search for the words!",
+      "wordFound": "Word found: {word}!",
+      "allWordsFound": "You completed the puzzle!",
+      "wordsRemaining": "{count} words remaining",
+      "wordsList": "Words to find",
+      "instructions": {
+        "slide1": {
+          "title": "Word Search",
+          "description": "Find 12 hidden words in the 15×15 grid."
+        },
+        "slide2": {
+          "title": "How to Play?",
+          "description": "Drag your mouse over letters to select words.",
+          "item1": "12 hidden words",
+          "item2": "Drag to select",
+          "item3": "Fastest players score more points",
+          "tip": "Words can be in any direction!"
+        }
+      }
+    },
+    "flappy": {
+      "title": "Flappy Bird",
+      "description": "Fly without hitting obstacles",
+      "subtitle": "Survive as long as possible!",
+      "gameOver": "You crashed! Score: {score}",
+      "newRecord": "New record: {score} points!",
+      "score": "Score",
+      "highScore": "High Score",
+      "pressSpace": "Press SPACE",
+      "instructions": {
+        "slide1": {
+          "title": "Flappy Bird",
+          "description": "Fly as far as possible without crashing into pipes."
+        },
+        "slide2": {
+          "title": "Controls",
+          "description": "Press SPACE to fly upwards. It's very simple!",
+          "item1": "SPACE to fly",
+          "item2": "Avoid the pipes",
+          "item3": "Survive as long as possible",
+          "tip": "Timing is everything! Don't fly too high or too low."
+        }
+      }
+    }
+  },
+  "achievements": {
+    "unlocked": "Achievement Unlocked!",
+    "newAchievement": "You got: {achievementName}",
+    "viewAll": "View all achievements",
+    "progress": "Progress: {current}/{total}",
+    "firstBlood": "First Blood",
+    "firstBloodDesc": "Play your first game",
+    "survivor": "Survivor",
+    "survivorDesc": "Survive 3 consecutive rounds",
+    "champion": "Champion",
+    "championDesc": "Win your first game",
+    "speedster": "Speedster",
+    "speedsterDesc": "Answer 5 questions in less than 10 seconds",
+    "perfectionist": "Perfectionist",
+    "perfectionistDesc": "Answer 10 questions correctly in a row",
+    "teamPlayer": "Team Player",
+    "teamPlayerDesc": "Win 3 rope duels",
+    "wordMaster": "Word Master",
+    "wordMasterDesc": "Spell 5 words without errors",
+    "luckyWheel": "Lucky Wheel",
+    "luckyWheelDesc": "Answer 5 roulette questions in a row",
+    "bonusKing": "Bonus King",
+    "bonusKingDesc": "Complete all bonus games",
+    "flappyPro": "Flappy Pro",
+    "flappyProDesc": "Survive 60 seconds in Flappy Bird"
+  },
+  "ui": {
+    "loading": "Loading...",
+    "connecting": "Connecting to server...",
+    "connected": "Connected!",
+    "disconnected": "Disconnected from server",
+    "reconnecting": "Reconnecting...",
+    "waiting": "Waiting for players...",
+    "ready": "Ready!",
+    "start": "Start",
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish",
+    "submit": "Submit",
+    "skip": "Skip",
+    "yes": "Yes",
+    "no": "No",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "refresh": "Refresh",
+    "settings": "Settings",
+    "help": "Help",
+    "about": "About",
+    "logout": "Logout",
+    "language": "Language"
+  },
+  "errors": {
+    "connectionLost": "Connection to server lost",
+    "invalidAnswer": "Invalid answer",
+    "timeExpired": "Time expired",
+    "serverError": "Server error. Please try again.",
+    "notFound": "Resource not found",
+    "unauthorized": "You don't have permission to do this",
+    "alreadyStarted": "Game has already started",
+    "sessionFull": "Session is full",
+    "invalidCode": "Invalid code",
+    "playerNotFound": "Player not found",
+    "networkError": "Network error. Check your connection.",
+    "unknown": "Unknown error. Please try again."
+  },
+  "audio": {
+    "soundtrack": "Music",
+    "effect": "Effect",
+    "voice": "Voice",
+    "ambience": "Ambience",
+    "nowPlaying": "Now playing",
+    "volume": "Volume",
+    "duration": "Duration",
+    "artist": "Artist",
+    "mute": "Mute",
+    "unmute": "Unmute"
+  },
+  "instructions": {
+    "subtitle": "Read the instructions before starting",
+    "previous": "Previous",
+    "next": "Next",
+    "understood": "Got it",
+    "skipFuture": "Don't show again",
+    "readCarefully": "Read carefully",
+    "important": "Important"
+  },
+  "supervisor": {
+    "dashboard": "Control Panel",
+    "startGame": "Start Game",
+    "pauseGame": "Pause Game",
+    "endGame": "End Game",
+    "kickPlayer": "Kick Player",
+    "mutePlayer": "Mute Player",
+    "forceInstructions": "Show Instructions",
+    "uploadSoundtrack": "Upload Music",
+    "viewAudits": "View Audits",
+    "players": "Players",
+    "session": "Session",
+    "rounds": "Rounds",
+    "statistics": "Statistics",
+    "actions": "Actions",
+    "confirmAction": "Are you sure about this action?",
+    "actionCompleted": "Action completed",
+    "actionFailed": "Action failed"
+  },
+  "lobby": {
+    "title": "Waiting Room",
+    "waitingForPlayers": "Waiting for players...",
+    "playersConnected": "{count} players connected",
+    "joinCode": "Session code: {code}",
+    "yourNumber": "Your number: {number}",
+    "yourNickname": "Your nickname: {nickname}",
+    "rules": "Game rules",
+    "startingSoon": "Starting soon!",
+    "ready": "Ready",
+    "notReady": "Not ready"
+  },
+  "scoreboard": {
+    "title": "Leaderboard",
+    "rank": "Rank",
+    "player": "Player",
+    "score": "Score",
+    "status": "Status",
+    "points": "Points",
+    "leader": "Leader",
+    "topPlayers": "Top Players",
+    "yourPosition": "Your position: #{rank}"
+  },
+  "chat": {
+    "title": "Chat",
+    "sendMessage": "Send message",
+    "typingPlaceholder": "Type a message...",
+    "systemMessage": "System message",
+    "playerJoined": "{playerName} joined",
+    "playerLeft": "{playerName} left",
+    "playerEliminated": "{playerName} was eliminated",
+    "muted": "Muted",
+    "unmuted": "Unmuted"
+  },
+  "player": {
+    "status": {
+      "alive": "Alive",
+      "eliminated": "Eliminated",
+      "winner": "Winner",
+      "spectator": "Spectator",
+      "disconnected": "Disconnected"
+    },
+    "reconnect": "Reconnect",
+    "reconnecting": "Reconnecting...",
+    "selectPlayer": "Select your player",
+    "enterPin": "Enter your PIN",
+    "reconnectSuccess": "Reconnection successful!",
+    "reconnectFailed": "Reconnection failed"
+  },
+  "results": {
+    "title": "Results",
+    "winner": "Winner!",
+    "eliminated": "Eliminated",
+    "survived": "You survived",
+    "congratulations": "Congratulations, {playerName}!",
+    "betterLuck": "Better luck next time, {playerName}",
+    "finalScore": "Final score: {score}",
+    "ranking": "Final ranking",
+    "playAgain": "Play again",
+    "exitGame": "Exit game"
+  },
+  "time": {
+    "seconds": "{count} seconds",
+    "minutes": "{count} minutes",
+    "hours": "{count} hours",
+    "elapsed": "Elapsed",
+    "remaining": "Remaining",
+    "expired": "Expired"
+  },
+  "common": {
+    "and": "and",
+    "or": "or",
+    "of": "of",
+    "in": "in",
+    "at": "at",
+    "by": "by",
+    "for": "for",
+    "with": "with",
+    "without": "without",
+    "total": "Total",
+    "average": "Average",
+    "best": "Best",
+    "worst": "Worst"
+  }
+}

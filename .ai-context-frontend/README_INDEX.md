@@ -8,6 +8,7 @@
 ## 📋 Índice Rápido
 
 ### [📚 LLM.txt's](llms/) - llms.txt de las tecnologias
+
 - **[DaisyUI 5](llms/daisy-llms.txt)** - Framework css utilitario basado en Tailwind CSS
 - **[Vue 3 intro](llms/vue-llms.txt)** - Framework frontend JavaScript
 - **[Vue 3 full](llms/vue-llms-full.txt)** - Framework frontend JavaScript
@@ -23,10 +24,25 @@
 
 - **[Architecture](knowledge/architecture.md)** - Dos repos, servidor autoritativo, flujo de datos
 - **[Tech Stack](knowledge/tech-stack.md)** - Laravel 12, Vue 3, Reverb, Docker, herramientas
-- **[Frontend Structure](knowledge/frontend-structure.md)** - Organización carpetas, módulos, patrones
+- **[Frontend Structure](knowledge/frontend-structure.md)** - Organización carpetas, módulos, patrones, chat bottom-left
 - **[Backend Structure](knowledge/backend-structure.md)** - DDD, Actions, Services, Events
-- **[WebSockets](knowledge/websockets.md)** - Reverb + Echo, canales, eventos
+- **[WebSockets](knowledge/websockets.md)** - Reverb + Echo, canales, eventos (achievements, instructions, audio, audits)
 - **[Audio System](knowledge/audio-system.md)** - ElevenLabs, S3, reproducción, seeders
+- **[Achievement System](knowledge/achievement-system.md)** - 35+ logros, triggers, Pinia store, integración con alerts
+- **[Audit System](knowledge/audit-system.md)** - Dual storage (DB 30d + S3), AuditService, supervisor UI, eventos estructurados
+- **[Instructions System](knowledge/instructions-system.md)** - GameInstructions.vue modal, metadata por juego, supervisor controls
+- **[Music Box UI](knowledge/music-box-ui.md)** - MusicBox.vue component (upper-left), soundtrack vs effect, audio integration
+- **[i18n System](knowledge/i18n-system.md)** - vue-i18n setup, es-CO/en-US locales, LanguageSwitcher component
+- **[Player System](knowledge/player-system.md)** - PlayerCard con número como ícono (gray bg, white text), reconexión
+- **[Scoreboard System](knowledge/scoreboard-system.md)** - Ranking unificado, normalización puntos por juego
+- **[Game Data Models](knowledge/game-data-models.md)** - TypeScript interfaces, DB schemas, relaciones para todos los juegos
+- **[Rope Implementation](knowledge/rope-implementation.md)** - Grouping algorithm, voting, Three.js visual, click battle
+- **[Word Search Implementation](knowledge/word-search-implementation.md)** - Vue pure HTML/CSS Grid, generación 15×15, drag selection
+- **[Flappy Implementation](knowledge/flappy-implementation.md)** - Phaser 3.80 setup, MainScene, Vue HUD overlay, crash handling
+- **[Three.js Visuals](knowledge/threejs-visuals.md)** - RopeVisual y BombVisual rendering
+- **[Three.js Chat](knowledge/threejs-chat.md)** - Sistema de chat integrado
+- **[Bonus Games](knowledge/bonus-games.md)** - Word Search y Flappy Bird no eliminatorios
+- **[Alert System](knowledge/alert-system.md)** - Sistema de alertas completo
 
 ### [📖 Rules](rules/) - Reglas de Implementación
 
@@ -35,6 +51,12 @@
 - **Game Rules** - Millonario, Cuerda, Deletréalo, Ruleta
 - **Supervisor Role** - Permisos, validación, moderación
 - **Coding Standards** - Convenciones TypeScript/Vue/Laravel
+
+### [🌍 Locales](../src/locales/) - Archivos de Traducción
+
+- **[es-CO.json](../src/locales/es-CO.json)** - Español Colombia (locale por defecto), 240+ keys con tono colombiano
+- **[en-US.json](../src/locales/en-US.json)** - English US (fallback), 240+ keys con traducciones equivalentes
+- Namespaces: `narrator.*`, `games.*`, `achievements.*`, `ui.*`, `errors.*`, `audio.*`, `instructions.*`, `supervisor.*`, `lobby.*`, `scoreboard.*`, `chat.*`, `player.*`, `results.*`, `time.*`, `common.*`
 
 ---
 
@@ -175,13 +197,12 @@ Sistema de audio con 3 canales independientes, preload, y cola de reproducción:
 
 Rendering 3D visual-only (no lógica de juego) para dos juegos:
 
-- **RopeVisual** (La Cuerda): 
+- **RopeVisual** (La Cuerda):
   - Renderer WebGPU con fallback WebGL
   - Cuerda 3D que se mueve horizontalmente según tensión (-1 a 1)
   - Marcador central rojo pulsante
   - Interpolación suave con lerp
   - ~250 líneas de código
-  
 - **BombVisual** (Deletréalo):
   - Esfera que se infla de 1× a 3.5× según tiempo restante
   - Sistema de partículas (500) para explosión

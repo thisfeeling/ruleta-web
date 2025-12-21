@@ -90,7 +90,11 @@ interface Player {
 <!-- modules/player/PlayerCard.vue -->
 <template>
   <div class="player-card" :style="{ borderColor: player.color }">
-    <div class="player-number">{{ player.number }}</div>
+    <!-- Player Number as Icon (REFACTOR) -->
+    <div class="player-number-icon" :style="{ backgroundColor: '#6b7280', color: '#ffffff' }">
+      {{ player.number }}
+    </div>
+
     <div class="player-nickname">{{ player.nickname }}</div>
     <div class="player-status" :class="statusClass">
       {{ statusText }}
@@ -123,6 +127,21 @@ const formatTime = (date: string | null) => {
   return new Date(date).toLocaleTimeString('es-CO')
 }
 </script>
+
+<style scoped>
+.player-number-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* Gray background (#6b7280 = gray-500) */
+  /* White text (#ffffff) */
+}
+</style>
 ```
 
 ### Store de Jugadores
