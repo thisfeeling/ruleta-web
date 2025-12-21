@@ -106,7 +106,7 @@ src/
 │   │   └── supervisor.store.ts
 │   │
 │   └── chat/                      # Chat en tiempo real
-│       ├── ChatBox.vue
+│       ├── ChatBox.vue            # 👈 Posición: bottom-left lateral
 │       ├── ChatMessage.vue
 │       ├── chat.store.ts
 │       └── chat.socket.ts

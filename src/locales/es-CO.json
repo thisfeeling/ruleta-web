@@ -1,0 +1,392 @@
+{
+  "narrator": {
+    "welcome": "¡Ajá, parcero! Bienvenido a Ruleta Familiar",
+    "welcomeLong": "¡Ombe, qué chimba que estén aquí! Prepárense que esto se pone piloso",
+    "gameStart": "¡Esto está que arde! ¿Listos para el desafío?",
+    "gameStartIntense": "¡Se puso fino! Que comience el show, parcero",
+    "roundStart": "¡Ombe, se puso piloso! Comienza la ronda {roundNumber}",
+    "roundEnd": "¡Qué tiradera! Ronda {roundNumber} finalizada",
+    "elimination": "¡Paila, {playerName}! Quedaste eliminado",
+    "eliminationMultiple": "¡Uy no! {count} jugadores quedaron eliminados",
+    "winner": "¡Fino, parcero! {playerName} se llevó la victoria",
+    "countdown": "¡En {seconds} segundos comienza la batalla!",
+    "countdown3": "¡Tres!",
+    "countdown2": "¡Dos!",
+    "countdown1": "¡Uno!",
+    "countdownGo": "¡Ya, parcero!",
+    "hurryUp": "¡Apúrense que se acaba el tiempo!",
+    "timeUp": "¡Se acabó el tiempo, parcero!",
+    "lastMinute": "¡Último minuto, dense prisa!",
+    "wellDone": "¡Qué bien, {playerName}!",
+    "tryAgain": "¡Venga, inténtalo de nuevo!",
+    "almostThere": "¡Casi, casi!",
+    "perfect": "¡Perfectazo!",
+    "oops": "¡Uy no!",
+    "thatsIt": "¡Eso es!",
+    "letsGo": "¡Venga, pues!",
+    "incredible": "¡Increíble!",
+    "amazing": "¡Qué chimba!"
+  },
+  "games": {
+    "millionaire": {
+      "title": "Millonario",
+      "description": "Responde preguntas antes que el tiempo se acabe",
+      "subtitle": "Demuestra tu conocimiento general",
+      "jokerUsed": "¡Joker 50:50 activado!",
+      "jokerNotAvailable": "Ya no tienes jokers disponibles",
+      "correctAnswer": "¡Correcto, parcero!",
+      "wrongAnswer": "¡Uy no, esa no era!",
+      "timeWarning": "¡Rápido, que se acaba el tiempo!",
+      "questionNumber": "Pregunta {current} de {total}",
+      "pointsEarned": "¡{points} puntos!",
+      "instructions": {
+        "slide1": {
+          "title": "Bienvenido a Millonario",
+          "description": "Responde 10 preguntas de cultura general en 3 minutos. ¡El tiempo corre, parcero!"
+        },
+        "slide2": {
+          "title": "¿Cómo se juega?",
+          "description": "Lee la pregunta y selecciona una de las 4 opciones. Sé rápido pero preciso.",
+          "item1": "10 preguntas en 3 minutos",
+          "item2": "Cada respuesta correcta suma puntos",
+          "item3": "Los jugadores con menos puntos quedan eliminados"
+        },
+        "slide3": {
+          "title": "Joker 50:50",
+          "description": "Elimina dos opciones incorrectas si te trabas, parcero.",
+          "item1": "Elimina 2 respuestas incorrectas",
+          "item2": "Máximo 4 usos por partida",
+          "tip": "¡Úsalo sabiamente! Una vez se gasta, no vuelve."
+        }
+      }
+    },
+    "rope": {
+      "title": "Jala la Cuerda",
+      "description": "Compite en equipos jalando la cuerda virtual",
+      "subtitle": "Batalla de equipos a puro click",
+      "teamFormed": "¡Equipo {teamName} formado!",
+      "teamName": "Nombre del equipo",
+      "voteForName": "Vota por el nombre del equipo",
+      "battleStart": "¡Comienza el duelo entre {team1} y {team2}!",
+      "victory": "¡{teamName} ganó el duelo!",
+      "clickFaster": "¡Haz click más rápido!",
+      "yourTurn": "¡Es tu turno de jalar!",
+      "tension": "Tensión",
+      "instructions": {
+        "slide1": {
+          "title": "Jala la Cuerda",
+          "description": "Forma equipos y compite en duelos de clicks. ¡Que gane el más rápido!"
+        },
+        "slide2": {
+          "title": "Formación de Equipos",
+          "description": "Se organizan en grupos de 5 jugadores y votan por el nombre.",
+          "item1": "Grupos de 5 jugadores",
+          "item2": "Votan nombre del equipo",
+          "item3": "Duelos uno contra uno"
+        },
+        "slide3": {
+          "title": "¡A jalar!",
+          "description": "Haz click lo más rápido posible para ganar el duelo.",
+          "tip": "¡Cuidado! No hagas spam o te descalifican, parcero."
+        }
+      }
+    },
+    "spell": {
+      "title": "Deletreo",
+      "description": "Escribe la palabra correctamente antes que explote",
+      "subtitle": "Memoriza y escribe sin errores",
+      "wordShown": "Memoriza esta palabra: {word}",
+      "typeNow": "¡Escribe ahora!",
+      "correctSpelling": "¡Perfecto, parcero!",
+      "wrongSpelling": "¡Uy, te equivocaste!",
+      "explosion": "¡Boom! La bomba explotó",
+      "timeRemaining": "Tiempo: {seconds}s",
+      "letterCorrect": "✓",
+      "letterWrong": "✗",
+      "instructions": {
+        "slide1": {
+          "title": "Deletreo de Bomba",
+          "description": "Memoriza y escribe palabras antes que el tiempo se acabe. ¡Cuidado con la bomba!"
+        },
+        "slide2": {
+          "title": "¿Cómo funciona?",
+          "description": "Tienes 5 segundos para memorizar la palabra, luego escríbela.",
+          "item1": "Memoriza la palabra en 5 segundos",
+          "item2": "Escribe letra por letra",
+          "item3": "Sin corrector, sin borrar"
+        },
+        "slide3": {
+          "title": "Cuidado con la Bomba",
+          "description": "Si te demoras mucho o te equivocas, explota.",
+          "tip": "¡Escribe rápido pero sin errores, parcero!"
+        }
+      }
+    },
+    "roulette": {
+      "title": "Ruleta",
+      "description": "Responde preguntas de categorías aleatorias",
+      "subtitle": "La ruleta decide tu destino",
+      "categorySpun": "¡La ruleta cayó en {category}!",
+      "questionTime": "Pregunta de {category}",
+      "spinning": "¡Girando la ruleta!",
+      "category": "Categoría",
+      "instructions": {
+        "slide1": {
+          "title": "Ruleta de Preguntas",
+          "description": "La ruleta decide la categoría de cada ronda. ¡Prepárate para cualquier tema!"
+        },
+        "slide2": {
+          "title": "Dinámica",
+          "description": "Cada ronda tiene una categoría diferente, seleccionada al azar.",
+          "item1": "Categoría aleatoria por ronda",
+          "item2": "Responde rápido para sumar puntos",
+          "item3": "Los lentos quedan eliminados"
+        }
+      }
+    },
+    "wordSearch": {
+      "title": "Sopa de Letras",
+      "description": "Encuentra todas las palabras ocultas",
+      "subtitle": "¡A buscar las palabras!",
+      "wordFound": "¡Palabra encontrada: {word}!",
+      "allWordsFound": "¡Completaste la sopa, parcero!",
+      "wordsRemaining": "{count} palabras restantes",
+      "wordsList": "Palabras a buscar",
+      "instructions": {
+        "slide1": {
+          "title": "Sopa de Letras",
+          "description": "Encuentra 12 palabras ocultas en la cuadrícula 15×15."
+        },
+        "slide2": {
+          "title": "¿Cómo jugar?",
+          "description": "Arrastra el mouse sobre las letras para seleccionar palabras.",
+          "item1": "12 palabras ocultas",
+          "item2": "Arrastra para seleccionar",
+          "item3": "Los más rápidos suman más puntos",
+          "tip": "¡Las palabras pueden estar en cualquier dirección, parcero!"
+        }
+      }
+    },
+    "flappy": {
+      "title": "Flappy Bird",
+      "description": "Vuela sin chocar con los obstáculos",
+      "subtitle": "¡Sobrevive el mayor tiempo posible!",
+      "gameOver": "¡Chocaste! Puntuación: {score}",
+      "newRecord": "¡Nuevo récord: {score} puntos!",
+      "score": "Puntuación",
+      "highScore": "Mejor puntuación",
+      "pressSpace": "Presiona ESPACIO",
+      "instructions": {
+        "slide1": {
+          "title": "Flappy Bird",
+          "description": "Vuela lo más lejos posible sin chocar con los tubos."
+        },
+        "slide2": {
+          "title": "Controles",
+          "description": "Presiona ESPACIO para volar hacia arriba. ¡Es muy sencillo!",
+          "item1": "ESPACIO para volar",
+          "item2": "Evita los tubos",
+          "item3": "Sobrevive el mayor tiempo posible",
+          "tip": "¡Timing es todo! No vueles muy alto ni muy bajo, parcero."
+        }
+      }
+    }
+  },
+  "achievements": {
+    "unlocked": "¡Logro desbloqueado!",
+    "newAchievement": "Obtuviste: {achievementName}",
+    "viewAll": "Ver todos los logros",
+    "progress": "Progreso: {current}/{total}",
+    "firstBlood": "Primera Sangre",
+    "firstBloodDesc": "Juega tu primera partida",
+    "survivor": "Superviviente",
+    "survivorDesc": "Sobrevive 3 rondas consecutivas",
+    "champion": "Campeón",
+    "championDesc": "Gana tu primera partida",
+    "speedster": "Veloz",
+    "speedsterDesc": "Responde 5 preguntas en menos de 10 segundos",
+    "perfectionist": "Perfeccionista",
+    "perfectionistDesc": "Responde 10 preguntas seguidas correctamente",
+    "teamPlayer": "Jugador de Equipo",
+    "teamPlayerDesc": "Gana 3 duelos de cuerda",
+    "wordMaster": "Maestro de Palabras",
+    "wordMasterDesc": "Deletrea 5 palabras sin errores",
+    "luckyWheel": "Ruleta Afortunada",
+    "luckyWheelDesc": "Acierta 5 preguntas de ruleta seguidas",
+    "bonusKing": "Rey del Bonus",
+    "bonusKingDesc": "Completa todos los juegos bonus",
+    "flappyPro": "Flappy Profesional",
+    "flappyProDesc": "Sobrevive 60 segundos en Flappy Bird"
+  },
+  "ui": {
+    "loading": "Cargando...",
+    "connecting": "Conectando al servidor...",
+    "connected": "¡Conectado!",
+    "disconnected": "Desconectado del servidor",
+    "reconnecting": "Reconectando...",
+    "waiting": "Esperando jugadores...",
+    "ready": "¡Listo!",
+    "start": "Iniciar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "finish": "Finalizar",
+    "submit": "Enviar",
+    "skip": "Saltar",
+    "yes": "Sí",
+    "no": "No",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "refresh": "Actualizar",
+    "settings": "Configuración",
+    "help": "Ayuda",
+    "about": "Acerca de",
+    "logout": "Cerrar sesión",
+    "language": "Idioma"
+  },
+  "errors": {
+    "connectionLost": "Se perdió la conexión con el servidor",
+    "invalidAnswer": "Respuesta inválida",
+    "timeExpired": "El tiempo se agotó",
+    "serverError": "Error del servidor. Intenta de nuevo.",
+    "notFound": "No se encontró el recurso",
+    "unauthorized": "No tienes permiso para hacer esto",
+    "alreadyStarted": "El juego ya comenzó",
+    "sessionFull": "La sesión está llena",
+    "invalidCode": "Código inválido",
+    "playerNotFound": "Jugador no encontrado",
+    "networkError": "Error de red. Verifica tu conexión.",
+    "unknown": "Error desconocido. Intenta de nuevo."
+  },
+  "audio": {
+    "soundtrack": "Música",
+    "effect": "Efecto",
+    "voice": "Voz",
+    "ambience": "Ambiente",
+    "nowPlaying": "Reproduciendo ahora",
+    "volume": "Volumen",
+    "duration": "Duración",
+    "artist": "Artista",
+    "mute": "Silenciar",
+    "unmute": "Activar sonido"
+  },
+  "instructions": {
+    "subtitle": "Lee las instrucciones antes de comenzar",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "understood": "Entendido",
+    "skipFuture": "No mostrar de nuevo",
+    "readCarefully": "Lee con atención",
+    "important": "Importante"
+  },
+  "supervisor": {
+    "dashboard": "Panel de Control",
+    "startGame": "Iniciar Juego",
+    "pauseGame": "Pausar Juego",
+    "endGame": "Finalizar Juego",
+    "kickPlayer": "Expulsar Jugador",
+    "mutePlayer": "Silenciar Jugador",
+    "forceInstructions": "Mostrar Instrucciones",
+    "uploadSoundtrack": "Subir Música",
+    "viewAudits": "Ver Auditoría",
+    "players": "Jugadores",
+    "session": "Sesión",
+    "rounds": "Rondas",
+    "statistics": "Estadísticas",
+    "actions": "Acciones",
+    "confirmAction": "¿Estás seguro de esta acción?",
+    "actionCompleted": "Acción completada",
+    "actionFailed": "Acción fallida"
+  },
+  "lobby": {
+    "title": "Sala de Espera",
+    "waitingForPlayers": "Esperando jugadores...",
+    "playersConnected": "{count} jugadores conectados",
+    "joinCode": "Código de sesión: {code}",
+    "yourNumber": "Tu número: {number}",
+    "yourNickname": "Tu apodo: {nickname}",
+    "rules": "Reglas del juego",
+    "startingSoon": "¡El juego comienza pronto!",
+    "ready": "Listo",
+    "notReady": "No listo"
+  },
+  "scoreboard": {
+    "title": "Tabla de Posiciones",
+    "rank": "Posición",
+    "player": "Jugador",
+    "score": "Puntuación",
+    "status": "Estado",
+    "points": "Puntos",
+    "leader": "Líder",
+    "topPlayers": "Mejores Jugadores",
+    "yourPosition": "Tu posición: #{rank}"
+  },
+  "chat": {
+    "title": "Chat",
+    "sendMessage": "Enviar mensaje",
+    "typingPlaceholder": "Escribe un mensaje...",
+    "systemMessage": "Mensaje del sistema",
+    "playerJoined": "{playerName} se unió",
+    "playerLeft": "{playerName} se fue",
+    "playerEliminated": "{playerName} fue eliminado",
+    "muted": "Silenciado",
+    "unmuted": "Activado"
+  },
+  "player": {
+    "status": {
+      "alive": "Vivo",
+      "eliminated": "Eliminado",
+      "winner": "Ganador",
+      "spectator": "Espectador",
+      "disconnected": "Desconectado"
+    },
+    "reconnect": "Reconectar",
+    "reconnecting": "Reconectando...",
+    "selectPlayer": "Selecciona tu jugador",
+    "enterPin": "Ingresa tu PIN",
+    "reconnectSuccess": "¡Reconexión exitosa!",
+    "reconnectFailed": "Reconexión fallida"
+  },
+  "results": {
+    "title": "Resultados",
+    "winner": "¡Ganador!",
+    "eliminated": "Eliminado",
+    "survived": "Sobreviviste",
+    "congratulations": "¡Felicidades, {playerName}!",
+    "betterLuck": "Mejor suerte la próxima, {playerName}",
+    "finalScore": "Puntuación final: {score}",
+    "ranking": "Ranking final",
+    "playAgain": "Jugar de nuevo",
+    "exitGame": "Salir del juego"
+  },
+  "time": {
+    "seconds": "{count} segundos",
+    "minutes": "{count} minutos",
+    "hours": "{count} horas",
+    "elapsed": "Transcurrido",
+    "remaining": "Restante",
+    "expired": "Expirado"
+  },
+  "common": {
+    "and": "y",
+    "or": "o",
+    "of": "de",
+    "in": "en",
+    "at": "en",
+    "by": "por",
+    "for": "para",
+    "with": "con",
+    "without": "sin",
+    "total": "Total",
+    "average": "Promedio",
+    "best": "Mejor",
+    "worst": "Peor"
+  }
+}

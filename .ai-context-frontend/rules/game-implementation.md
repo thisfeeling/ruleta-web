@@ -124,50 +124,184 @@ class ShowMachine
 
 ---
 
-## Juego del Millonario
+## Juego del Millonario (REFACTORED)
 
 ### Mecánica
 
 **Tipo**: Preguntas de opción múltiple  
-**Participantes**: Todos los jugadores vivos  
-**Objetivo**: Responder correctamente lo más rápido posible  
-**Eliminación**: Cooldown por respuesta incorrecta (no inmediata)
+**Participantes**: Todos los jugadores vivos simultáneamente  
+**Preguntas**: 15 preguntas aleatorias por jugador (pool infinito)  
+**Comodín**: Solo 50:50 (elimina 2 respuestas incorrectas), máximo 4 usos  
+**Eliminación**: NO inmediata - basada en puntaje final (bottom % eliminados)  
+**Puntaje**: Progresivo (pregunta 1 = 10pts, pregunta 15 = 150pts)
 
-### Flujo
+### Refactor Notes
+
+❌ **Removed**:
+
+- "Llamar a un amigo" (phone call joker)
+- "Preguntar al público" (audience poll joker)
+
+✅ **Kept**:
+
+- 50:50 joker (4 usos máximo por jugador)
+
+**Razón**: Simplificar mecánica, evitar delays, focus en conocimiento puro
+
+### Flujo Detallado
 
 ```
-1. Laravel envía pregunta + 4 opciones + tiempo (15-20s)
-2. Todos los jugadores ven la misma pregunta
-3. Jugadores envían respuesta + timestamp
-4. Laravel valida:
-   - Correcta → jugador sigue
-   - Incorrecta → cooldown (no puede responder próxima pregunta)
-5. Repetir hasta reducir ~40-50% jugadores
+1. Supervisor carga preguntas al pool (infinitas, categorías variadas)
+2. Laravel asigna 15 preguntas aleatorias a cada jugador
+3. Todos juegan simultáneamente (no turnos)
+4. Por cada pregunta:
+   a. Timer 15-20s
+   b. Jugador selecciona respuesta
+   c. Puede usar 50:50 si le quedan usos (max 4)
+   d. Backend valida inmediatamente
+   e. Feedback visual (correcto/incorrecto)
+5. Al finalizar las 15 preguntas:
+   a. Backend calcula scores
+   b. Normaliza a 0-1000 (% correctas × 1000)
+   c. Elimina bottom 40-50% (configurable)
+   d. Broadcast eliminaciones + scoreboard update
 ```
 
-### Backend: Lógica
+### Datos Guardados
+
+```typescript
+interface MillionaireAttempt {
+  player_id: number
+  round_id: number
+  question_id: number
+  selected_answer: 'A' | 'B' | 'C' | 'D'
+  correct_answer: 'A' | 'B' | 'C' | 'D'
+  is_correct: boolean
+  time_taken_ms: number
+  fifty_fifty_used: boolean
+  timestamp: string
+}
+
+interface MillionaireResult {
+  player_id: number
+  round_id: number
+  correct_count: number
+  total_questions: 15
+  score: number // 0-1000 normalized
+  fifty_fifty_used_count: number
+  total_time_ms: number
+  eliminated: boolean
+  rank: number | null
+}
+```
+
+### Backend: Lógica (Updated)
 
 ```php
 // app/Actions/Games/Millionaire/SubmitAnswer.php
-public function handle(Player $player, int $questionId, string $answer): bool
+public function handle(Player $player, int $questionId, string $answer, bool $fiftyFiftyUsed = false): array
 {
-    // Verificar cooldown
-    if ($player->millionaire_cooldown_until > now()) {
-        throw new \Exception('Estás en cooldown');
+    $attempt = MillionaireAttempt::where('player_id', $player->id)
+        ->where('question_id', $questionId)
+        ->first();
+
+    if ($attempt && $attempt->answered_at) {
+        throw new \Exception('Ya respondiste esta pregunta');
     }
 
     $question = Question::findOrFail($questionId);
     $correct = ($answer === $question->correct_answer);
+    $timeTakenMs = now()->diffInMilliseconds($attempt->started_at);
 
-    if (!$correct) {
-        // Aplicar cooldown (1 pregunta)
-        $player->millionaire_cooldown_until = now()->addMinutes(5);
-        $player->save();
+    // Validate 50:50 usage
+    if ($fiftyFiftyUsed) {
+        $usedCount = MillionaireAttempt::where('player_id', $player->id)
+            ->where('round_id', $attempt->round_id)
+            ->where('fifty_fifty_used', true)
+            ->count();
+
+        if ($usedCount >= 4) {
+            throw new \Exception('Ya usaste los 4 comodines 50:50');
+        }
     }
 
-    broadcast(new AnswerResult($player->id, $correct));
+    // Save attempt
+    $attempt->update([
+        'selected_answer' => $answer,
+        'is_correct' => $correct,
+        'time_taken_ms' => $timeTakenMs,
+        'fifty_fifty_used' => $fiftyFiftyUsed,
+        'answered_at' => now()
+    ]);
 
-    return $correct;
+    // Broadcast result
+    broadcast(new AnswerResult($player->id, $questionId, $correct));
+
+    // Audit log
+    AuditService::log(
+        actorId: $player->id,
+        actorType: 'player',
+        action: 'player.answer_submitted',
+        targetType: 'question',
+        targetId: (string)$questionId,
+        context: [
+            'round_id' => $attempt->round_id,
+            'correct' => $correct,
+            'time_ms' => $timeTakenMs,
+            'fifty_fifty_used' => $fiftyFiftyUsed
+        ]
+    );
+
+    return [
+        'correct' => $correct,
+        'time_ms' => $timeTakenMs,
+        'correct_answer' => $question->correct_answer
+    ];
+}
+
+// app/Actions/Games/Millionaire/CalculateResults.php
+public function handle(int $roundId): void
+{
+    $attempts = MillionaireAttempt::where('round_id', $roundId)->get();
+
+    $results = $attempts->groupBy('player_id')->map(function ($playerAttempts, $playerId) use ($roundId) {
+        $correctCount = $playerAttempts->where('is_correct', true)->count();
+        $totalTime = $playerAttempts->sum('time_taken_ms');
+        $fiftyFiftyCount = $playerAttempts->where('fifty_fifty_used', true)->count();
+
+        $score = ($correctCount / 15) * 1000;  // Normalize to 0-1000
+
+        return MillionaireResult::create([
+            'player_id' => $playerId,
+            'round_id' => $roundId,
+            'correct_count' => $correctCount,
+            'score' => $score,
+            'fifty_fifty_used_count' => $fiftyFiftyCount,
+            'total_time_ms' => $totalTime
+        ]);
+    });
+
+    // Sort by score (desc), then by time (asc)
+    $ranked = $results->sortByDesc('score')
+        ->sortBy('total_time_ms')
+        ->values();
+
+    // Assign ranks
+    $ranked->each(function ($result, $index) {
+        $result->update(['rank' => $index + 1]);
+    });
+
+    // Eliminate bottom 40%
+    $eliminationThreshold = ceil($ranked->count() * 0.6);  // Top 60% survive
+    $ranked->slice($eliminationThreshold)->each(function ($result) {
+        Player::find($result->player_id)->update(['status' => PlayerStatus::ELIMINATED]);
+        $result->update(['eliminated' => true]);
+
+        broadcast(new PlayerEliminated($result->player_id, 'millionaire'));
+    });
+
+    // Update scoreboard
+    ScoreboardService::updateFromMillionaire($roundId);
 }
 ```
 
