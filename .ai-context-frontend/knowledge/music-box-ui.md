@@ -66,7 +66,7 @@ MusicBox
         class="flex items-center gap-3 bg-base-100/80 backdrop-blur-md rounded-2xl shadow-2xl border border-base-300/50 transition-all duration-300"
         :class="[
           isHovered ? 'px-5 py-4' : 'px-4 py-3',
-          currentTrack.type === 'soundtrack' ? 'min-w-[280px]' : 'min-w-[220px]',
+          currentTrack.type === 'soundtrack' ? 'min-w-280px' : 'min-w-220px',
         ]"
       >
         <!-- Album Art / Icon -->
