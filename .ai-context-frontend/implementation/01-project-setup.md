@@ -1,6 +1,6 @@
 # 01 - Project Setup & Configuration
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [ ] Not Started | [ ] In Progress | [x] Completed | [ ] Tested
 
 ---
 
@@ -31,11 +31,11 @@ Node.js v20.19.5+ and Npm v11.6.3+ are required.
 # Core framework
 npm create vue@latest
 
-# options 
+# options
 
 ✔ Project name: … ruleta-web
 ✔ Add TypeScript? … Yes
-✔ Add JSX Support? …  Yes 
+✔ Add JSX Support? …  Yes
 ✔ Add Vue Router for Single Page Application development? … Yes
 ✔ Add Pinia for state management? … Yes
 ✔ Add Vitest for Unit testing? …  Yes
@@ -98,7 +98,6 @@ npm install tailwindcss @tailwindcss/vite
 # Icons (optional)
 npm install lucide-vue-next
 ```
-
 
 ---
 
@@ -262,21 +261,146 @@ export default {
 }
 ```
 
-### `.env` (example)
+### `.env` (examples)
+
+> Nota: sincronizado con las variables del backend; **usar `.env.local` para desarrollo** y **`.env.production` para build/producción**. En Dokploy debes proporcionar las variables (o build args) durante el build.
+
+#### `.env.local` (desarrollo — local)
 
 ```env
-VITE_APP_NAME=
-VITE_APP_ENV=
-VITE_BASE_URL=
-VITE_API_URL=
-VITE_REVERB_SCHEME=
-VITE_REVERB_APP_KEY=
-VITE_REVERB_HOST=
-VITE_REVERB_PORT=
+# App
+VITE_APP_NAME=Ruleta
+VITE_APP_ENV=local
+VITE_BASE_URL=http://localhost:5173
+
+# Backend (dev local)
+VITE_API_URL=http://localhost:8000
+
+# Reverb (WebSocket, local)
+VITE_REVERB_SCHEME=http
+VITE_REVERB_APP_KEY=local-app-key
+VITE_REVERB_HOST=127.0.0.1
+VITE_REVERB_PORT=8080
+
+# ElevenLabs (opcional)
 VITE_ELEVENLABS_API_KEY=
+
+# Repo links (opcional)
 VITE_GITHUB_BACKEND_REPO_URL=
 VITE_GITHUB_FRONTEND_REPO_URL=
 ```
+
+> Tips locales: como tienes `nginx`, `mariadb`, `phpmyadmin`, `redis` y `rustfs` corriendo localmente, verifica que:
+>
+> - El backend esté corriendo en `http://localhost:8000` y Reverb en `:8080`.
+> - `rustfs` esté accesible (endpoint) y el backend tenga configuradas las credenciales correspondientes.
+> - Si usas containers, puedes mapear puertos para que `localhost` sea accesible desde el host.
+
+#### `.env.production` (Dokploy / producción)
+
+```env
+VITE_APP_NAME=Ruleta
+VITE_APP_ENV=production
+VITE_BASE_URL=https://tudominio.com
+
+# Backend (producción)
+VITE_API_URL=https://api.tudominio.com
+
+# Reverb (WSS en producción — ajusta si usas subdominio)
+VITE_REVERB_SCHEME=https
+VITE_REVERB_APP_KEY=production-app-key
+VITE_REVERB_HOST=api.tudominio.com
+VITE_REVERB_PORT=8080
+
+# ElevenLabs (producción)
+VITE_ELEVENLABS_API_KEY=
+```
+
+> Nota: Vite inyecta variables en build time si comienzan con `VITE_`. En Dokploy, pasa las variables durante el build (build args o variables de entorno del builder) para que se incorporen al artefacto estático.
+
+---
+
+## Local services (lo que deberías tener corriendo en tu máquina)
+
+- nginx: proxy / certificados locales (opcional)
+- mariadb + phpmyadmin: base de datos para pruebas locales
+- redis: cache / colas
+- rustfs (S3 compatible): almacenamiento de audios y assets
+
+Si falta alguno, levántalos con tu `docker-compose` preferido o comandos locales. Asegúrate de que las URLs y puertos coincidan con los que definas en `.env.local`.
+
+---
+
+## Producción — Dockerfile (Dokploy)
+
+Adjunto un `Dockerfile` de ejemplo pensado para Dokploy que:
+
+- Construye la app con Node (`npm run build`) usando `VITE_*` como build args
+- Sirve los assets con `nginx` en `/` y aplica SPA-fallback
+
+```dockerfile
+# Build stage
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --production=false
+COPY . .
+
+# Pasar variables de build (Dokploy puede inyectar como --build-arg)
+ARG VITE_API_URL
+ARG VITE_REVERB_SCHEME
+ARG VITE_REVERB_HOST
+ARG VITE_REVERB_PORT
+ENV VITE_API_URL=${VITE_API_URL}
+ENV VITE_REVERB_SCHEME=${VITE_REVERB_SCHEME}
+ENV VITE_REVERB_HOST=${VITE_REVERB_HOST}
+ENV VITE_REVERB_PORT=${VITE_REVERB_PORT}
+
+RUN npm run build
+
+# Production stage
+FROM nginx:stable-alpine AS production
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Nginx config for SPA (rewrite to index.html)
+COPY .docker/nginx.frontend.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+### `nginx.frontend.conf` (ejemplo mínimo)
+
+```nginx
+server {
+  listen 80;
+  server_name _;
+
+  root /usr/share/nginx/html;
+  index index.html;
+
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+
+  # Optional: add gzip, headers, caching for assets
+  location ~* \.(?:css|js|jpg|jpeg|gif|png|svg|ico|woff2?)$ {
+    expires 7d;
+    add_header Cache-Control "public";
+  }
+}
+```
+
+> Nota sobre Dokploy: configura las variables `VITE_*` como build args o variables del builder para que se incluyan en el artefacto. Si prefieres inyectarlas en runtime, revisa la técnica de runtime config (archivo `config.json` generado por el entrypoint y consumido por la app).
+
+---
+
+### Actualización de criterios de aceptación
+
+- [x] Documentación sincronizada con variables del backend (local + prod)
+- [x] Añadido `Dockerfile` de producción y `nginx` de ejemplo para Dokploy
+- [x] Notas sobre cómo pasar `VITE_*` en Dokploy y comprobaciones locales
 
 ---
 
