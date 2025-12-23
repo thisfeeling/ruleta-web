@@ -12,12 +12,12 @@ Configuración de Vue Router para navegación y vue-i18n para internacionalizaci
 
 ## 🎯 Objectives
 
-- [ ] Configurar Vue Router con lazy loading
-- [ ] Definir rutas principales (Home, Lobby, Game, Supervisor)
-- [ ] Implementar guards de navegación (auth check)
-- [ ] Configurar vue-i18n con español e inglés
-- [ ] Crear componente LanguageSwitcher
-- [ ] Poblar archivos de traducción
+- [x] Configurar Vue Router con lazy loading
+- [x] Definir rutas principales (Home, Lobby, Game, Supervisor)
+- [x] Implementar guards de navegación (auth check)
+- [x] Configurar vue-i18n con español e inglés
+- [x] Crear componente LanguageSwitcher
+- [x] Poblar archivos de traducción
 
 ---
 
@@ -110,13 +110,13 @@ export default router
 
 **Checklist**:
 
-- [ ] Create router instance with history mode
-- [ ] Define all routes with lazy loading
-- [ ] Add meta fields for auth requirements
-- [ ] Implement beforeEach navigation guard
-- [ ] Test navigation between routes
-- [ ] Test auth guard redirects
-- [ ] Test supervisor guard
+- [x] Create router instance with history mode
+- [x] Define all routes with lazy loading
+- [x] Add meta fields for auth requirements
+- [x] Implement beforeEach navigation guard
+- [x] Test navigation between routes
+- [x] Test auth guard redirects
+- [x] Test supervisor guard
 
 ---
 
@@ -147,12 +147,11 @@ export default i18n
 
 **Checklist**:
 
-- [ ] Install vue-i18n
-- [ ] Create i18n instance with Composition API mode
-- [ ] Set es-CO as default locale
-- [ ] Import locale JSON files
-- [ ] Export i18n instance
-
+- [x] Install vue-i18n
+- [x] Create i18n instance with Composition API mode
+- [x] Set es-CO as default locale
+- [x] Import locale JSON files
+- [x] Export i18n instance
 ---
 
 ### 3. Locale Files
@@ -465,12 +464,12 @@ export default i18n
 
 **Checklist**:
 
-- [ ] Create es-CO.json with all Spanish translations
-- [ ] Create en-US.json with all English translations
-- [ ] Organize translations by namespace
-- [ ] Add placeholder support ({nickname}, {count}, etc.)
-- [ ] Review translations for Colombian Spanish tone
-- [ ] Add more translations as features are implemented
+- [x] Create es-CO.json with all Spanish translations
+- [x] Create en-US.json with all English translations
+- [x] Organize translations by namespace
+- [x] Add placeholder support ({nickname}, {count}, etc.)
+- [x] Review translations for Colombian Spanish tone
+- [x] Add more translations as features are implemented
 
 ---
 
@@ -516,12 +515,12 @@ const localeNames: Record<string, string> = {
 
 **Checklist**:
 
-- [ ] Create LanguageSwitcher component
-- [ ] Use vue-i18n composable
-- [ ] Save selected locale to localStorage
-- [ ] Add flag emojis for visual identification
-- [ ] Test language switching
-- [ ] Verify all translations update reactively
+- [x] Create LanguageSwitcher component
+- [x] Use vue-i18n composable
+- [x] Save selected locale to localStorage
+- [x] Add flag emojis for visual identification
+- [x] Test language switching
+- [x] Verify all translations update reactively
 
 ---
 
@@ -608,15 +607,15 @@ export default {
 
 ## ✅ Acceptance Criteria
 
-- [ ] Router configured with lazy loading
-- [ ] Auth guards prevent unauthorized access
-- [ ] Supervisor guard works correctly
-- [ ] i18n plugin installed and configured
-- [ ] Both locales (es-CO, en-US) loaded
-- [ ] Language switcher works and persists selection
-- [ ] All translations used in components update reactively
-- [ ] Placeholder interpolation works ({nickname}, {count})
-- [ ] Missing translation warnings suppressed in production
+- [x] Router configured with lazy loading
+- [x] Auth guards prevent unauthorized access
+- [x] Supervisor guard works correctly
+- [x] i18n plugin installed and configured
+- [x] Both locales (es-CO, en-US) loaded
+- [x] Language switcher works and persists selection
+- [x] All translations used in components update reactively
+- [x] Placeholder interpolation works ({nickname}, {count})
+- [x] Missing translation warnings suppressed in production
 
 ---
 

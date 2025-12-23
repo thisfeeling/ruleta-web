@@ -9,6 +9,12 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: false },
   },
   {
+    path: '/reconnect',
+    name: 'reconnect',
+    component: () => import('@/modules/player/ReconnectView.vue'),
+    meta: { requiresAuth: false },
+  },
+  {
     path: '/lobby',
     name: 'lobby',
     component: () => import('@/views/LobbyView.vue'),

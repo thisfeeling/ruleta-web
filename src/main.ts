@@ -25,9 +25,16 @@ app.use(i18n)
 try {
   const savedLocale = localStorage.getItem('locale') as 'es-CO' | 'en-US' | null
   if (savedLocale && ['es-CO', 'en-US'].includes(savedLocale)) {
-    // `i18n.global.locale` may be a Ref or a plain string depending on the runtime types - assign directly
-    // @ts-ignore
-    i18n.global.locale = savedLocale
+    // `i18n.global.locale` may be a Ref or a plain string depending on the runtime types - assign safely
+    const maybeLocale = (i18n.global as unknown as { locale?: string | import('vue').Ref<string> })
+      .locale
+    if (maybeLocale && typeof maybeLocale === 'object' && 'value' in maybeLocale) {
+      // it's a Ref
+      ;(maybeLocale as import('vue').Ref<string>).value = savedLocale
+    } else {
+      // plain assignment
+      ;(i18n.global as unknown as { locale?: string }).locale = savedLocale
+    }
   }
 } catch {}
 
@@ -39,6 +46,14 @@ try {
     // lazy import to avoid circular deps during testing
     const { registerGameSocketListeners } = await import('@/modules/core/services/game.socket')
     registerGameSocketListeners()
+
+    // Register player-specific socket listeners
+    try {
+      const { registerPlayerSocketListeners } = await import('@/modules/player/player.socket')
+      registerPlayerSocketListeners()
+    } catch (err) {
+      console.warn('[main] Failed to register player socket listeners', err)
+    }
   } catch (e) {
     console.warn('[main] Failed to register game socket listeners', e)
   }

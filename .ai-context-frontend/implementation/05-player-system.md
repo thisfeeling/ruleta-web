@@ -1,6 +1,6 @@
 # 05 - Player System (Join, Reconnect, PlayerCard)
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [x] Completed
 
 ---
 
@@ -12,12 +12,12 @@ Sistema completo de jugadores: unirse al juego, reconexión tras desconexión, v
 
 ## 🎯 Objectives
 
-- [ ] Implementar player.store.ts (gestión de jugadores)
-- [ ] Crear componente PlayerCard (con número como ícono)
-- [ ] Crear componente PlayerList (lista de jugadores)
-- [ ] Crear componente ReconnectView (interfaz de reconexión)
-- [ ] Crear componente PlayerHUB (HUD del jugador)
-- [ ] Integrar WebSocket events para jugadores
+- [x] Implementar player.store.ts (gestión de jugadores)
+- [x] Crear componente PlayerCard (con número como ícono)
+- [x] Crear componente PlayerList (lista de jugadores)
+- [x] Crear componente ReconnectView (interfaz de reconexión)
+- [x] Crear componente PlayerHUB (HUD del jugador)
+- [x] Integrar WebSocket events para jugadores
 
 ---
 
@@ -173,11 +173,11 @@ export const usePlayersStore = defineStore('players', () => {
 
 **Checklist**:
 
-- [ ] Create players Map state
-- [ ] Implement CRUD operations (add, update, remove)
-- [ ] Add getters for alive/eliminated players
-- [ ] Add helpers (getByNumber, sortedPlayers)
-- [ ] Test with mock player data
+- [x] Create players Map state
+- [x] Implement CRUD operations (add, update, remove)
+- [x] Add getters for alive/eliminated players
+- [x] Add helpers (getByNumber, sortedPlayers)
+- [x] Test with mock player data
 
 ---
 
@@ -298,13 +298,13 @@ const numberSizeClasses = computed(() => {
 
 **Checklist**:
 
-- [ ] Create PlayerCard component
-- [ ] Display player number as icon (gray bg, white text, or player color)
-- [ ] Show player nickname below icon
-- [ ] Highlight current player with ring
-- [ ] Show eliminated status
-- [ ] Add size variants (sm, md, lg)
-- [ ] Test with different player states
+- [x] Create PlayerCard component
+- [x] Display player number as icon (gray bg, white text, or player color)
+- [x] Show player nickname below icon
+- [x] Highlight current player with ring
+- [x] Show eliminated status
+- [x] Add size variants (sm, md, lg)
+- [x] Test with different player states
 
 ---
 
@@ -378,12 +378,11 @@ const gridColumns = computed(() => `repeat(${props.columns}, minmax(0, 1fr))`)
 
 **Checklist**:
 
-- [ ] Create PlayerList component
-- [ ] Support filtering (all, alive, eliminated)
-- [ ] Use grid layout with configurable columns
-- [ ] Show empty state when no players
-- [ ] Test with different filter modes
-
+- [x] Create PlayerList component
+- [x] Support filtering (all, alive, eliminated)
+- [x] Use grid layout with configurable columns
+- [x] Show empty state when no players
+- [x] Test with different filter modes
 ---
 
 ### 4. ReconnectView Component (`ReconnectView.vue`)
@@ -530,14 +529,14 @@ function selectPlayer(playerNumber: number) {
 
 **Checklist**:
 
-- [ ] Create ReconnectView component
-- [ ] Display all players in grid
-- [ ] Allow selecting player by clicking card
-- [ ] Show PIN input after selection
-- [ ] Handle reconnect with validation
-- [ ] Show loading state during reconnection
-- [ ] Redirect to lobby on success
-- [ ] Show error on failure
+- [x] Create ReconnectView component
+- [x] Display all players in grid
+- [x] Allow selecting player by clicking card
+- [x] Show PIN input after selection
+- [x] Handle reconnect with validation
+- [x] Show loading state during reconnection
+- [x] Redirect to lobby on success
+- [x] Show error on failure
 
 ---
 
@@ -628,12 +627,12 @@ const statusClass = computed(() => {
 
 **Checklist**:
 
-- [ ] Create PlayerHUB component
-- [ ] Display current player info (number, nickname)
-- [ ] Show player status (alive/eliminated)
-- [ ] Show game info (players alive, round)
-- [ ] Position fixed in corner
-- [ ] Apply visual changes when eliminated
+- [x] Create PlayerHUB component
+- [x] Display current player info (number, nickname)
+- [x] Show player status (alive/eliminated)
+- [x] Show game info (players alive, round)
+- [x] Position fixed in corner
+- [x] Apply visual changes when eliminated
 
 ---
 
@@ -692,29 +691,29 @@ export function usePlayerWebSocket() {
 
 **Checklist**:
 
-- [ ] Listen to PlayerJoined event
-- [ ] Listen to PlayerEliminated event
-- [ ] Listen to PlayerDisconnected event
-- [ ] Listen to PlayerReconnected event
-- [ ] Listen to PlayersList event (initial load)
-- [ ] Update stores accordingly
-- [ ] Test all WebSocket events
+- [x] Listen to PlayerJoined event
+- [x] Listen to PlayerEliminated event
+- [x] Listen to PlayerDisconnected event
+- [x] Listen to PlayerReconnected event
+- [x] Listen to PlayersList event (initial load)
+- [x] Update stores accordingly
+- [x] Test all WebSocket events
 
 ---
 
 ## ✅ Acceptance Criteria
 
-- [ ] Players store manages all player data
-- [ ] PlayerCard displays number as icon with color
-- [ ] PlayerCard shows eliminated state
-- [ ] PlayerList renders grid of players
-- [ ] PlayerList supports filtering
-- [ ] ReconnectView allows selecting player
-- [ ] ReconnectView validates PIN
-- [ ] PlayerHUB shows current player info
-- [ ] WebSocket events update stores in real-time
-- [ ] Reconnection flow works end-to-end
-- [ ] UI updates reactively when players join/leave/eliminated
+- [x] Players store manages all player data
+- [x] PlayerCard displays number as icon with color
+- [x] PlayerCard shows eliminated state
+- [x] PlayerList renders grid of players
+- [x] PlayerList supports filtering
+- [x] ReconnectView allows selecting player
+- [x] ReconnectView validates PIN
+- [x] PlayerHUB shows current player info
+- [x] WebSocket events update stores in real-time
+- [x] Reconnection flow works end-to-end
+- [x] UI updates reactively when players join/leave/eliminated
 
 ---
 
