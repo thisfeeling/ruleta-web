@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import AchievementToast from './AchievementToast.vue'
 import { useAchievementsStore } from './achievements.store'
 
+const TOAST_DURATION = 5000
 const store = useAchievementsStore()
 const toasts = computed(() => store.toasts)
 
@@ -17,6 +18,7 @@ function closeToast(toastId: string) {
       <div v-for="toast in toasts" :key="toast.toastId" class="toast-item">
         <AchievementToast
           :achievement="toast.achievement"
+          :duration="TOAST_DURATION"
           @close="() => closeToast(toast.toastId)"
         />
       </div>
@@ -47,5 +49,24 @@ function closeToast(toastId: string) {
 
 .toast-item {
   display: block;
+  pointer-events: auto;
+}
+
+/* Mobile: move to bottom center and use compact layout */
+@media (max-width: 640px) {
+  .achievement-toasts-container {
+    top: auto;
+    bottom: 1rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    align-items: center;
+  }
+
+  .toast-item {
+    width: 100%;
+    max-width: 360px;
+  }
 }
 </style>

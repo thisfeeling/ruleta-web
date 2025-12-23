@@ -3,6 +3,7 @@ import type { Achievement } from './achievements.store'
 
 interface Props {
   achievement: Achievement
+  duration?: number
 }
 
 const props = defineProps<Props>()
@@ -24,6 +25,14 @@ const emit = defineEmits(['close'])
       </div>
     </div>
     <button class="achievement-close" @click="emit('close')">✕</button>
+
+    <!-- Progress bar -->
+    <div class="achievement-progress" aria-hidden>
+      <div
+        class="achievement-progress__bar"
+        :style="{ animationDuration: (props.duration ?? 5000) + 'ms' }"
+      ></div>
+    </div>
   </div>
 </template>
 
@@ -68,5 +77,55 @@ const emit = defineEmits(['close'])
   border: none;
   font-size: 0.9rem;
   cursor: pointer;
+}
+
+.achievement-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 0 0 6px 6px;
+}
+
+.achievement-progress__bar {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.9), rgba(34, 197, 94, 0.6));
+  width: 100%;
+  transform-origin: left center;
+  animation-name: shrinkBar;
+  animation-timing-function: linear;
+}
+
+@keyframes shrinkBar {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Pause progress on hover */
+.achievement-toast:hover .achievement-progress__bar {
+  animation-play-state: paused;
+}
+
+/* Compact mobile: smaller, hide description */
+@media (max-width: 640px) {
+  .achievement-toast {
+    min-width: 160px;
+    padding: 0.45rem 0.6rem;
+  }
+
+  .achievement-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .achievement-desc {
+    display: none;
+  }
 }
 </style>
