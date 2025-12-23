@@ -56,3 +56,19 @@ export async function submitGameScore(params: SubmitParams) {
     throw err
   }
 }
+
+export async function getTopPlayers(showId: number, limit = 10) {
+  return apiService.get<{
+    top: Array<{
+      player_id: number
+      player_number: number
+      normalized_score: number
+      nickname?: string
+      color?: string
+    }>
+  }>(`/api/shows/${showId}/scoreboard/top?limit=${limit}`)
+}
+
+export async function getScoreboard(showId: number) {
+  return apiService.get(`/api/shows/${showId}/scoreboard`)
+}

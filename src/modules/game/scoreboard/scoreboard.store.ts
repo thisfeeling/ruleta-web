@@ -15,6 +15,30 @@ export const useScoreboardStore = defineStore('scoreboard', () => {
 
   const topPlayers = computed(() => sortedScoreboard.value.slice(0, 10))
 
+  // Fetch top players from API
+  async function fetchTop(showId: number, limit = 10) {
+    try {
+      const resp = await import('./scoreboard.api').then((m) => m.getTopPlayers(showId, limit))
+      if (resp && resp.top) {
+        // map into PlayerScore and call addScore for each
+        resp.top.forEach((p: any) => {
+          addScore({
+            player_id: p.player_id,
+            player_number: p.player_number,
+            nickname: p.nickname ?? `Player ${p.player_number}`,
+            color: p.color ?? '#999',
+            game: 'remote',
+            score: p.normalized_score,
+            normalized_score: p.normalized_score,
+            timestamp: new Date().toISOString(),
+          })
+        })
+      }
+    } catch (err) {
+      console.warn('[Scoreboard] fetchTop failed', err)
+    }
+  }
+
   // Keep track of last seen score per player+game to avoid duplicates
   const lastScoreMap = ref<Map<string, { normalized_score: number; timestamp: string }>>(new Map())
 
