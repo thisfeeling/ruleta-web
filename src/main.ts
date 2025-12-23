@@ -54,13 +54,39 @@ try {
     } catch (err) {
       console.warn('[main] Failed to register player socket listeners', err)
     }
+
+    // Register chat listeners
+    try {
+      const { registerChatSocketListeners } = await import('@/modules/chat/chat.socket')
+      registerChatSocketListeners()
+    } catch (err) {
+      console.warn('[main] Failed to register chat socket listeners', err)
+    }
+
+    // Register achievements listeners
+    try {
+      const { registerAchievementsSocketListeners } =
+        await import('@/modules/achievements/achievements.socket')
+      registerAchievementsSocketListeners()
+    } catch (err) {
+      console.warn('[main] Failed to register achievements socket listeners', err)
+    }
+
+    // Register supervisor listeners
+    try {
+      const { registerSupervisorSocketListeners } =
+        await import('@/modules/supervisor/supervisor.socket')
+      registerSupervisorSocketListeners()
+    } catch (err) {
+      console.warn('[main] Failed to register supervisor socket listeners', err)
+    }
   } catch (e) {
     console.warn('[main] Failed to register game socket listeners', e)
   }
 } catch (e) {
   // Non-fatal: If Reverb isn't running during local dev/preview, initialize() may fail.
   // Log at debug level to avoid alarming end-users while keeping the info for devs.
-   
+
   console.debug('[main] Echo init failed', e)
 }
 

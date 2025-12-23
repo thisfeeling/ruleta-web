@@ -1,6 +1,6 @@
 # 16 - Chat, Supervisor & Auxiliary Systems
 
-**Status**: [] Completed
+**Status**: [ ] Completed
 
 ---
 
