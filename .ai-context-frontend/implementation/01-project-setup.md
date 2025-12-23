@@ -1,6 +1,6 @@
 # 01 - Project Setup & Configuration
 
-**Status**: [ ] Not Started | [ ] In Progress | [x] Completed | [ ] Tested
+**Status**: [x] Completed
 
 ---
 

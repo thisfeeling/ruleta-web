@@ -9,6 +9,15 @@ export default mergeConfig(
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/**'],
       root: fileURLToPath(new URL('./', import.meta.url)),
+      // Coverage configuration (used when running `vitest --coverage` or via CI)
+      coverage: {
+        provider: 'v8', // use 'v8' provider for reliable coverage reporting in Node/Vite
+        reporter: ['text', 'lcov', 'html'],
+        reportsDirectory: 'coverage',
+        all: true,
+        include: ['src/**/*.{ts,tsx,vue}'],
+        exclude: ['**/*.spec.*', 'node_modules/**', 'src/main.ts'],
+      },
     },
   }),
 )
