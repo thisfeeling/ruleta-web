@@ -118,6 +118,23 @@ export const useMillionaireStore = defineStore('millionaire', () => {
     return score.value
   }
 
+  async function submitScore() {
+    const normalized = computeScore()
+
+    try {
+      const { submitGameScore } = await import('@/modules/game/scoreboard/scoreboard.api')
+      await submitGameScore({
+        game: 'millionaire',
+        rawData: { correctAnswers: correctAnswers.value, totalQuestions: totalQuestions.value },
+        score: normalized,
+      })
+    } catch (e) {
+      // network failed — log and continue
+
+      console.error('[MillionaireStore] submitScore failed', e)
+    }
+  }
+
   return {
     currentQuestion,
     questionNumber,
@@ -138,5 +155,6 @@ export const useMillionaireStore = defineStore('millionaire', () => {
     canAnswer,
     timeProgress,
     computeScore,
+    submitScore,
   }
 })

@@ -15,6 +15,13 @@ export const useScoreboardStore = defineStore('scoreboard', () => {
 
   const topPlayers = computed(() => sortedScoreboard.value.slice(0, 10))
 
+  // Keep track of last seen score per player+game to avoid duplicates
+  const lastScoreMap = ref<Map<string, { normalized_score: number; timestamp: string }>>(new Map())
+
+  function keyFor(score: PlayerScore) {
+    return `${score.player_id}:${score.game}`
+  }
+
   function updateEntry(score: PlayerScore) {
     let entry = entries.value.get(score.player_id)
 
@@ -37,6 +44,24 @@ export const useScoreboardStore = defineStore('scoreboard', () => {
   }
 
   function addScore(score: PlayerScore) {
+    const key = keyFor(score)
+    const last = lastScoreMap.value.get(key)
+
+    // If we've already recorded this exact normalized score at the same timestamp, ignore
+    if (
+      last &&
+      last.normalized_score === score.normalized_score &&
+      last.timestamp === score.timestamp
+    ) {
+      return
+    }
+
+    // Store latest info
+    lastScoreMap.value.set(key, {
+      normalized_score: score.normalized_score,
+      timestamp: score.timestamp,
+    })
+
     scores.value.push(score)
     updateEntry(score)
   }
@@ -61,6 +86,7 @@ export const useScoreboardStore = defineStore('scoreboard', () => {
   function reset() {
     scores.value = []
     entries.value.clear()
+    lastScoreMap.value.clear()
   }
 
   return {

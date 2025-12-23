@@ -12,12 +12,12 @@ Sistema de puntuación unificado que agrega puntos de todos los juegos (main + b
 
 ## 🎯 Objectives
 
-- [ ] Implementar scoreboard.store.ts
-- [ ] Implementar scoreboard.logic.ts (normalización)
-- [ ] Implementar scoreboard.socket.ts
-- [ ] Crear Scoreboard.vue (vista completa)
-- [ ] Crear ScoreboardCompact.vue (HUD compacto)
-- [ ] Integrar con todos los juegos
+- [x] Implementar scoreboard.store.ts
+- [x] Implementar scoreboard.logic.ts (normalización)
+- [x] Implementar scoreboard.socket.ts
+- [x] Crear Scoreboard.vue (vista completa)
+- [x] Crear ScoreboardCompact.vue (HUD compacto)
+- [x] Integrar con todos los juegos
 
 ---
 
@@ -167,13 +167,13 @@ export const useScoreboardStore = defineStore('scoreboard', () => {
 
 **Checklist**:
 
-- [ ] Create store with scores array
-- [ ] Create entries map for aggregated data
-- [ ] Implement addScore action
-- [ ] Implement updateEntry to aggregate by player
-- [ ] Compute sortedScoreboard with ranks
-- [ ] Add helper methods (getPlayerScore, getPlayerRank)
-- [ ] Test with mock data
+- [x] Create store with scores array
+- [x] Create entries map for aggregated data
+- [x] Implement addScore action
+- [x] Implement updateEntry to aggregate by player
+- [x] Compute sortedScoreboard with ranks
+- [x] Add helper methods (getPlayerScore, getPlayerRank)
+- [x] Test with mock data
 
 ---
 
@@ -245,11 +245,11 @@ export function normalizeScore(game: string, rawData: any): number {
 
 **Checklist**:
 
-- [ ] Define normalization rules for each game
-- [ ] Implement calculateTotalScore
-- [ ] Implement normalizeScore helper
-- [ ] Test normalization with sample data
-- [ ] Verify all scores in 0-1000 range
+- [x] Define normalization rules for each game
+- [x] Implement calculateTotalScore
+- [x] Implement normalizeScore helper
+- [x] Test normalization with sample data
+- [x] Verify all scores in 0-1000 range
 
 ---
 
@@ -296,10 +296,10 @@ export function useScoreboardWebSocket() {
 
 **Checklist**:
 
-- [ ] Listen to ScoreAdded event
-- [ ] Listen to ScoreboardUpdated event (batch)
-- [ ] Listen to PlayerEliminated to mark in scoreboard
-- [ ] Test real-time updates
+- [x] Listen to ScoreAdded event
+- [x] Listen to ScoreboardUpdated event (batch)
+- [x] Listen to PlayerEliminated to mark in scoreboard
+- [x] Test real-time updates
 
 ---
 
@@ -392,12 +392,12 @@ const { t } = useI18n()
 
 **Checklist**:
 
-- [ ] Display full scoreboard table
-- [ ] Show ranks with medals (🥇🥈🥉)
-- [ ] Show player number, nickname, color
-- [ ] Show total score formatted
-- [ ] Highlight eliminated players
-- [ ] Show empty state
+- [x] Display full scoreboard table
+- [x] Show ranks with medals (🥇🥈🥉)
+- [x] Show player number, nickname, color
+- [x] Show total score formatted
+- [x] Highlight eliminated players
+- [x] Show empty state
 
 ---
 
@@ -500,12 +500,11 @@ const playerRank = computed(() => scoreboardStore.getPlayerRank(authStore.player
 
 **Checklist**:
 
-- [ ] Show current player rank and score
-- [ ] Display top 3 players
-- [ ] Compact design for HUD
-- [ ] Position fixed in corner
-- [ ] Updates in real-time
-
+- [x] Show current player rank and score
+- [x] Display top 3 players
+- [x] Compact design for HUD
+- [x] Position fixed in corner
+- [x] Updates in real-time
 ---
 
 ## 🚀 Integration
@@ -563,18 +562,18 @@ async function submitScore() {
 
 ## ✅ Acceptance Criteria
 
-- [ ] Store aggregates scores from all games
-- [ ] Scores normalized to 0-1000 range
-- [ ] Total score calculated correctly
-- [ ] Scoreboard sorts by total score
-- [ ] Ranks calculated and displayed
-- [ ] WebSocket updates in real-time
-- [ ] Full scoreboard component displays all players
-- [ ] Compact scoreboard shows top 3 + current player
-- [ ] Eliminated players marked visually
-- [ ] Integration with all games works
-- [ ] No duplicate scores for same player/game
-- [ ] Performance good with 50 players
+- [x] Store aggregates scores from all games
+- [x] Scores normalized to 0-1000 range
+- [x] Total score calculated correctly
+- [x] Scoreboard sorts by total score
+- [x] Ranks calculated and displayed
+- [x] WebSocket updates in real-time
+- [x] Full scoreboard component displays all players
+- [x] Compact scoreboard shows top 3 + current player
+- [x] Eliminated players marked visually
+- [x] Integration with all games works
+- [x] No duplicate scores for same player/game
+- [x] Performance good with 50 players
 
 ---
 
