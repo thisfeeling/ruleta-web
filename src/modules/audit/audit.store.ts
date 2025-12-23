@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useApi } from '@/modules/core/composables/useApi'
 
 export interface AuditEntry {
   id: string
@@ -20,17 +21,23 @@ export const useAuditStore = defineStore('audit', () => {
     entries.value = []
   }
 
-  async function fetchRecent() {
-    // Placeholder: could fetch from API. Keep minimal implementation here.
-    // Simulate fetching a few recent audit events
-    entries.value = [
-      {
-        id: '1',
-        type: 'system',
-        message: 'Audit system initialized',
-        created_at: new Date().toISOString(),
-      },
-    ]
+  async function fetchRecent({ page = 1, limit = 50 } = {}) {
+    const { get } = useApi()
+    try {
+      const data = await get<AuditEntry[]>(`/api/audit/recent?page=${page}&limit=${limit}`)
+      entries.value = data
+    } catch (err) {
+      // Endpoint may not exist yet; keep placeholder entry and log
+      console.warn('[Audit] fetchRecent failed', err)
+      entries.value = [
+        {
+          id: '1',
+          type: 'system',
+          message: 'Audit system initialized (local)',
+          created_at: new Date().toISOString(),
+        },
+      ]
+    }
   }
 
   return { entries, add, clear, fetchRecent }

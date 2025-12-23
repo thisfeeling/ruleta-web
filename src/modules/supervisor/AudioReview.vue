@@ -14,7 +14,13 @@ async function approve(validationId: string) {
     })
     store.removeValidation(validationId)
     uiStore.success('Audio aprobado')
-  } catch (error) {
+  } catch (error: any) {
+    const status = error?.response?.status
+    if (status === 403) {
+      uiStore.error('No autorizado')
+      // Optionally disable actions, but here we just surface error
+      return
+    }
     uiStore.error('Error al aprobar')
   }
 }
@@ -26,7 +32,12 @@ async function reject(validationId: string) {
     })
     store.removeValidation(validationId)
     uiStore.warning('Audio rechazado')
-  } catch (error) {
+  } catch (error: any) {
+    const status = error?.response?.status
+    if (status === 403) {
+      uiStore.error('No autorizado')
+      return
+    }
     uiStore.error('Error al rechazar')
   }
 }
