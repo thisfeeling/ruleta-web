@@ -5,5 +5,8 @@
 <script setup lang="ts"></script>
 
 <style scoped>
-.wordsearch-timer { }
+.wordsearch-timer {
+  font-weight: 700;
+  font-family: 'Orbitron', monospace;
+}
 </style>

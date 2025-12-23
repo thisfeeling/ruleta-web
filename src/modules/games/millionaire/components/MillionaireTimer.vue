@@ -5,5 +5,9 @@
 <script setup lang="ts"></script>
 
 <style scoped>
-.millionaire-timer { }
+.millionaire-timer {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
 </style>

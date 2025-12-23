@@ -54,8 +54,13 @@ function startShow() {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
 .lobby-scene {
-  @apply w-full;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.lobby-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

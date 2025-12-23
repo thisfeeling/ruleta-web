@@ -35,8 +35,12 @@ function playAgain() {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
 .winner-scene {
-  @apply w-full;
+  padding: 1rem;
+  text-align: center;
+}
+.player-card-large {
+  max-width: 320px;
+  margin: 0 auto;
 }
 </style>

@@ -5,5 +5,10 @@
 <script setup lang="ts"></script>
 
 <style scoped>
-.answer-button { }
+.answer-button {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  background: var(--color-primary);
+  color: var(--color-primary-content);
+}
 </style>

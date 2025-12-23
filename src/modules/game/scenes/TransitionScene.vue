@@ -28,8 +28,12 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
 .transition-scene {
-  @apply w-full;
+  text-align: center;
+  padding: 1.25rem;
+}
+.countdown {
+  font-weight: 700;
+  font-size: 3.5rem;
 }
 </style>
