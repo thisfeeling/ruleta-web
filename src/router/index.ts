@@ -27,6 +27,12 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/game/millionaire',
+    name: 'millionaire',
+    component: () => import('@/modules/games/millionaire/MillionaireScene.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/supervisor',
     name: 'supervisor',
     component: () => import('@/views/SupervisorView.vue'),
