@@ -1,6 +1,6 @@
 # 06 - Game State Machine & Scene Management
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [x] Completed
 
 ---
 

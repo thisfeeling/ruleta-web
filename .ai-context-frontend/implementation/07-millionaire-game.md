@@ -1,6 +1,6 @@
 # 07 - Millionaire Game Implementation
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [ ] Completed
 
 ---
 
