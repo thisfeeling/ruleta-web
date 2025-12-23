@@ -33,15 +33,24 @@ export class ApiService {
       (error) => Promise.reject(error),
     )
 
-    // Simple response error handling
+    // Response error handling with 401 handling (remove token + redirect)
     this.client.interceptors.response.use(
       (response) => response,
       (error: unknown) => {
-        // Optionally handle global errors (401 logout, 500 notifications, etc.)
         const status = (error as { response?: { status?: number } })?.response?.status
         if (status === 401) {
-          // For now log and let caller handle
-          console.warn('[ApiService] Unauthorized (401)')
+          try {
+            localStorage.removeItem('auth_token')
+          } catch {}
+
+          // Clear saved session if available (lazy import to avoid cycles)
+          void import('@/modules/core/services/storage.service')
+            .then((m) => m.storageService?.clearPlayerSession?.())
+            .catch(() => {})
+
+          try {
+            if (typeof window !== 'undefined') window.location.href = '/'
+          } catch {}
         }
         return Promise.reject(error)
       },

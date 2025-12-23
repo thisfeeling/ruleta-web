@@ -54,7 +54,12 @@ export class StorageService {
   }
 
   getSettings(): unknown {
-    return this.get('settings')
+    return this.get('settings', {
+      musicVolume: 0.6,
+      sfxVolume: 0.8,
+      voiceVolume: 1.0,
+      language: 'es-CO',
+    })
   }
 }
 

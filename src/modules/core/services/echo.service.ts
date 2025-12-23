@@ -42,11 +42,87 @@ export class EchoService {
       enabledTransports: ['ws', 'wss'],
     }) as unknown as EchoLike
 
-    // Note: Reverb connector does not expose the same events as Pusher in all builds.
-    // We keep minimal connection listeners and re-initialize on errors.
+    // Setup connection listeners for reconnection/backoff
+    this.setupConnectionListeners()
 
     console.log('[Echo] Initialized')
     return this.echo
+  }
+
+  private setupConnectionListeners() {
+    if (!this.echo) return
+
+    // Some connector implementations expose nested objects in different shapes
+    const connector = (this.echo as unknown as { connector?: unknown })?.connector
+
+    const resolveConnection = (conn: unknown): unknown => {
+      if (typeof conn !== 'object' || conn === null) return undefined
+      const c = conn as Record<string, unknown>
+      const maybePusher = c.pusher as Record<string, unknown> | undefined
+      if (maybePusher && typeof maybePusher.connection !== 'undefined') return maybePusher.connection
+      if (typeof c.socket !== 'undefined') return c.socket
+      const maybeReverb = c.reverb as Record<string, unknown> | undefined
+      if (maybeReverb && typeof maybeReverb.socket !== 'undefined') return maybeReverb.socket
+      return undefined
+    }
+
+    const connection = resolveConnection(connector)
+    try {
+      type Bindable = { bind: (event: string, callback: (...args: unknown[]) => void) => void }
+
+      if (connection && typeof (connection as Bindable).bind === 'function') {
+        const conn = connection as Bindable
+        const onFailure = () => this.handleReconnect()
+
+        // Reset attempts on connected
+        try {
+          conn.bind('connected', () => {
+            this.reconnectAttempts = 0
+          })
+        } catch {}
+
+        // Bind common failure events
+        try {
+          conn.bind('disconnected', onFailure)
+        } catch {}
+        try {
+          conn.bind('error', onFailure)
+        } catch {}
+        try {
+          conn.bind('connect_error', onFailure)
+        } catch {}
+        try {
+          conn.bind('close', onFailure)
+        } catch {}
+      }
+    } catch {
+      // Not all connectors expose events - ignore
+    }
+  }
+
+  private handleReconnect() {
+    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+      console.error('[Echo] Max reconnection attempts reached')
+      try {
+        window.dispatchEvent(new CustomEvent('echo:connection-failed'))
+      } catch {}
+      return
+    }
+
+    this.reconnectAttempts++
+    const delay = Math.min(30000, 1000 * Math.pow(2, this.reconnectAttempts - 1))
+    console.log(`[Echo] Reconnecting... Attempt ${this.reconnectAttempts} in ${delay}ms`)
+
+    setTimeout(() => {
+      try {
+        this.disconnect()
+        this.initialize()
+      } catch (e) {
+        console.warn('[Echo] Reconnect attempt failed', e)
+        // schedule next attempt
+        this.handleReconnect()
+      }
+    }, delay)
   }
 
   getEcho(): EchoLike | null {

@@ -1,6 +1,6 @@
 # 03 - Core Stores (Auth, UI, Session)
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [x] Completed
 
 ---
 
@@ -12,11 +12,11 @@ Implementación de stores Pinia fundamentales para autenticación, estado UI glo
 
 ## 🎯 Objectives
 
-- [ ] Implementar Auth Store (login, logout, token management)
-- [ ] Implementar UI Store (modals, alerts, loading states)
-- [ ] Implementar Session Store (current game state, screen)
-- [ ] Crear tipos TypeScript para cada store
-- [ ] Integrar stores con servicios core
+- [x] Implementar Auth Store (login, logout, token management)
+- [x] Implementar UI Store (modals, alerts, loading states)
+- [x] Implementar Session Store (current game state, screen)
+- [x] Crear tipos TypeScript para cada store
+- [x] Integrar stores con servicios core
 
 ---
 
@@ -230,17 +230,17 @@ export const useAuthStore = defineStore('auth', () => {
 
 **Checklist**:
 
-- [ ] Create Player interface
-- [ ] Create PlayerSession interface
-- [ ] Implement join action
-- [ ] Implement reconnect action
-- [ ] Implement restoreSession from localStorage
-- [ ] Implement logout with cleanup
-- [ ] Implement updatePlayer for WebSocket events
-- [ ] Add computed properties for common checks
-- [ ] Test join flow
-- [ ] Test reconnect flow
-- [ ] Test session restoration
+- [x] Create Player interface
+- [x] Create PlayerSession interface
+- [x] Implement join action
+- [x] Implement reconnect action
+- [x] Implement restoreSession from localStorage
+- [x] Implement logout with cleanup
+- [x] Implement updatePlayer for WebSocket events
+- [x] Add computed properties for common checks
+- [x] Test join flow
+- [x] Test reconnect flow
+- [x] Test session restoration
 
 ---
 
@@ -387,15 +387,15 @@ export const useUIStore = defineStore('ui', () => {
 
 **Checklist**:
 
-- [ ] Create Modal interface
-- [ ] Create Alert interface
-- [ ] Implement modal management (open/close)
-- [ ] Implement alert system with auto-dismiss
-- [ ] Implement loading state management
-- [ ] Add shorthand methods for alerts
-- [ ] Test modal stack behavior
-- [ ] Test alert auto-dismiss
-- [ ] Test loading states
+- [x] Create Modal interface
+- [x] Create Alert interface
+- [x] Implement modal management (open/close)
+- [x] Implement alert system with auto-dismiss
+- [x] Implement loading state management
+- [x] Add shorthand methods for alerts
+- [x] Test modal stack behavior
+- [x] Test alert auto-dismiss
+- [x] Test loading states
 
 ---
 
@@ -542,16 +542,16 @@ export const useSessionStore = defineStore('session', () => {
 
 **Checklist**:
 
-- [ ] Create GameScreen type
-- [ ] Create GamePhase type
-- [ ] Create GameSession interface
-- [ ] Implement session management
-- [ ] Implement screen transitions
-- [ ] Implement connection status tracking
-- [ ] Add computed properties for common checks
-- [ ] Test session updates
-- [ ] Test screen changes
-- [ ] Test player count updates
+- [x] Create GameScreen type
+- [x] Create GamePhase type
+- [x] Create GameSession interface
+- [x] Implement session management
+- [x] Implement screen transitions
+- [x] Implement connection status tracking
+- [x] Add computed properties for common checks
+- [x] Test session updates
+- [x] Test screen changes
+- [x] Test player count updates
 
 ---
 
@@ -630,16 +630,16 @@ gameChannel.listen('GameStarted', (event: any) => {
 
 ## ✅ Acceptance Criteria
 
-- [ ] Auth store handles join/reconnect/logout
-- [ ] Auth store persists session to localStorage
-- [ ] Auth store restores session on page reload
-- [ ] UI store manages modals stack
-- [ ] UI store shows/dismisses alerts with auto-timeout
-- [ ] UI store tracks loading states
-- [ ] Session store tracks current screen and game state
-- [ ] Session store updates from WebSocket events
-- [ ] All stores work together seamlessly
-- [ ] TypeScript types are correct and enforced
+- [x] Auth store handles join/reconnect/logout
+- [x] Auth store persists session to localStorage
+- [x] Auth store restores session on page reload
+- [x] UI store manages modals stack
+- [x] UI store shows/dismisses alerts with auto-timeout
+- [x] UI store tracks loading states
+- [x] Session store tracks current screen and game state
+- [x] Session store updates from WebSocket events
+- [x] All stores work together seamlessly
+- [x] TypeScript types are correct and enforced
 
 ---
 
