@@ -1,6 +1,6 @@
 # 14 - Scoreboard System
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [x] Completed
 
 ---
 

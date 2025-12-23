@@ -1,6 +1,6 @@
 # 16 - Chat, Supervisor & Auxiliary Systems
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [] Completed
 
 ---
 

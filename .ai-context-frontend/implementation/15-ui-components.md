@@ -1,6 +1,6 @@
 # 15 - UI Components & Layouts
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [ ] Completed
 
 ---
 

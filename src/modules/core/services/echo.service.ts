@@ -32,14 +32,28 @@ export class EchoService {
     }
 
     // Note: cast to EchoLike since laravel-echo's runtime exposes these methods
+
+    // Environment values: frontend expects `VITE_` prefixed vars. We provide fallbacks
+    // to plain `REVERB_*` names for convenience when mirroring backend env files.
+    const REVERB_KEY = import.meta.env.VITE_REVERB_APP_KEY ?? import.meta.env.REVERB_APP_KEY
+    const REVERB_HOST = import.meta.env.VITE_REVERB_HOST ?? import.meta.env.REVERB_HOST
+    const REVERB_PORT =
+      Number(import.meta.env.VITE_REVERB_PORT ?? import.meta.env.REVERB_PORT) || undefined
+    const REVERB_SCHEME =
+      import.meta.env.VITE_REVERB_SCHEME ?? import.meta.env.REVERB_SCHEME ?? 'https'
+    const REVERB_PATH = import.meta.env.VITE_REVERB_PATH ?? import.meta.env.REVERB_PATH ?? '/ws'
+    const FORCE_TLS = REVERB_SCHEME === 'https'
+
     this.echo = new Echo({
       broadcaster: 'reverb',
-      key: import.meta.env.VITE_REVERB_APP_KEY,
-      wsHost: import.meta.env.VITE_REVERB_HOST,
-      wsPort: Number(import.meta.env.VITE_REVERB_PORT) || undefined,
-      wssPort: Number(import.meta.env.VITE_REVERB_PORT) || undefined,
-      forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
+      key: REVERB_KEY,
+      wsHost: REVERB_HOST,
+      wsPort: REVERB_PORT,
+      wssPort: REVERB_PORT,
+      forceTLS: FORCE_TLS,
       enabledTransports: ['ws', 'wss'],
+      // Reverb path (e.g. '/ws') — depending on Echo connector this may be used as `path` or `wsPath`.
+      path: REVERB_PATH,
     }) as unknown as EchoLike
 
     // Setup connection listeners for reconnection/backoff
@@ -55,15 +69,33 @@ export class EchoService {
     // Some connector implementations expose nested objects in different shapes
     const connector = (this.echo as unknown as { connector?: unknown })?.connector
 
+    /**
+     * Resolve the underlying connection object from different connector shapes.
+     *
+     * Notes:
+     * - Reverb intentionally mimics parts of the Pusher-shaped connector Echo historically used.
+     * - We inspect a few possible shapes (pusher-like, socket, reverb) only to obtain a
+     *   raw connection/socket so we can bind reconnection events (connected/disconnected/etc.).
+     * - This DOES NOT mean we use Pusher service; do NOT add `pusher-js` or assume Pusher is used.
+     *   Echo is configured for Reverb via `broadcaster: 'reverb'` in `initialize()`.
+     */
     const resolveConnection = (conn: unknown): unknown => {
       if (typeof conn !== 'object' || conn === null) return undefined
       const c = conn as Record<string, unknown>
-      const maybePusher = c.pusher as Record<string, unknown> | undefined
-      if (maybePusher && typeof maybePusher.connection !== 'undefined')
-        return maybePusher.connection
+
+      // Some connectors expose a Pusher-shaped object. We treat it as "pusher-like" for
+      // compatibility, but we do not depend on the Pusher service here.
+      const maybePusherLike = c.pusher as Record<string, unknown> | undefined
+      if (maybePusherLike && typeof maybePusherLike.connection !== 'undefined')
+        return maybePusherLike.connection
+
+      // Generic socket-based connectors
       if (typeof c.socket !== 'undefined') return c.socket
+
+      // Reverb-specific connector shape
       const maybeReverb = c.reverb as Record<string, unknown> | undefined
       if (maybeReverb && typeof maybeReverb.socket !== 'undefined') return maybeReverb.socket
+
       return undefined
     }
 
