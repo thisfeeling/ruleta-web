@@ -73,6 +73,7 @@
 
 - **[15 - UI Components](implementation/15-ui-components.md)** - Alerts, Buttons, Forms, HUD, Modals, Layouts [ ]
 - **[16 - Chat & Supervisor](implementation/16-chat-supervisor.md)** - Chat system, Supervisor panel, Achievements [ ]
+- **[17 - Post-implementation](implementation/17-post-implementation.md)** - Resumen de cambios realizados y plan de limpieza/recomendaciones [x]
 
 ### [�📖 Rules](rules/) - Reglas de Implementación
 

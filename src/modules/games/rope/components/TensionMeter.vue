@@ -1,8 +1,15 @@
-<template>
-  <div class="tension-meter">0%</div>
-</template>
+<script setup lang="ts">
+import { computed } from 'vue'
+const props = defineProps<{ tension?: number }>()
+const pct = computed(() => Math.round((props.tension ?? 0) * 100))
+</script>
 
-<script setup lang="ts"></script>
+<template>
+  <div class="tension-meter">
+    <div class="bar" :style="{ width: pct + '%' }"></div>
+  </div>
+  <div class="text-xs mt-1">{{ pct }}%</div>
+</template>
 
 <style scoped>
 .tension-meter {
@@ -15,6 +22,5 @@
 .tension-meter .bar {
   height: 100%;
   background: var(--color-primary);
-  width: 50%;
 }
 </style>
