@@ -1,15 +1,60 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { useAuthStore } from '@/modules/core/stores/auth.store'
+
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('@/views/HomeView.vue'),
+    meta: { requiresAuth: false },
+  },
+  {
+    path: '/lobby',
+    name: 'lobby',
+    component: () => import('@/views/LobbyView.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/game',
+    name: 'game',
+    component: () => import('@/views/GameView.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/supervisor',
+    name: 'supervisor',
+    component: () => import('@/views/SupervisorView.vue'),
+    meta: { requiresAuth: true, requiresSupervisor: true },
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    redirect: '/',
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-    },
-  ],
+  routes,
+})
+
+// Navigation guard
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
+
+  // Check if route requires auth
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    console.warn('[Router] Auth required, redirecting to home')
+    return next({ name: 'home' })
+  }
+
+  // Check if route requires supervisor
+  if (to.meta.requiresSupervisor && !authStore.isSupervisor) {
+    console.warn('[Router] Supervisor required, redirecting to lobby')
+    return next({ name: 'lobby' })
+  }
+
+  next()
 })
 
 export default router

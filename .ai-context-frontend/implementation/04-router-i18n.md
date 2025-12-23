@@ -1,6 +1,6 @@
 # 04 - Router & i18n Setup
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [x] Completed
 
 ---
 

@@ -7,6 +7,7 @@ import { createPinia } from 'pinia'
 import App from '@/App.vue'
 import router from '@/router'
 import axiosPlugin from '@/plugins/axios'
+import i18n from '@/plugins/i18n'
 
 import { echoService } from '@/modules/core/services/echo.service'
 import { audioService } from '@/modules/core/services/audio.service'
@@ -18,6 +19,17 @@ const app = createApp(App)
 app.use(pinia)
 app.use(router)
 app.use(axiosPlugin)
+app.use(i18n)
+
+// Restore saved locale
+try {
+  const savedLocale = localStorage.getItem('locale') as 'es-CO' | 'en-US' | null
+  if (savedLocale && ['es-CO', 'en-US'].includes(savedLocale)) {
+    // `i18n.global.locale` may be a Ref or a plain string depending on the runtime types - assign directly
+    // @ts-ignore
+    i18n.global.locale = savedLocale
+  }
+} catch {}
 
 // Initialize background services
 try {
