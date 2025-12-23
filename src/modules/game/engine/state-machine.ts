@@ -22,7 +22,8 @@ export const GAME_FLOW: GameState[] = [
 ]
 
 export function getFirstGame(): GameState {
-  return GAME_FLOW[1]
+  // Prefer the first real game (index 1), fallback to lobby if missing
+  return (GAME_FLOW[1] ?? GAME_FLOW[0]) as GameState
 }
 
 export function getNextGame(current: GameState | null, allowBonus = false): GameState | null {

@@ -35,6 +35,7 @@ function playAgain() {
 </template>
 
 <style scoped>
+@reference "tailwindcss";
 .winner-scene {
   @apply w-full;
 }

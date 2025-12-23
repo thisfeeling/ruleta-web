@@ -95,6 +95,7 @@ const currentScene = computed(() => {
 </script>
 
 <style scoped>
+@reference "tailwindcss";
 .game-view {
   @apply min-h-screen;
 }

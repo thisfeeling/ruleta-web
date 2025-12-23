@@ -22,7 +22,8 @@ export function useGameWebSocket() {
   const gameChannel = channel('game.show')
 
   // Game Started
-  gameChannel?.listen('GameStarted', (event: GameStartedEvent) => {
+  gameChannel?.listen('GameStarted', (...args: unknown[]) => {
+    const event = args[0] as GameStartedEvent
     console.log('[GameSocket] GameStarted', event)
     gameStore.setGameState({
       id: event.game_id,
@@ -40,13 +41,15 @@ export function useGameWebSocket() {
   })
 
   // Screen Changed
-  gameChannel?.listen('ScreenChanged', (event: ScreenChangedEvent) => {
+  gameChannel?.listen('ScreenChanged', (...args: unknown[]) => {
+    const event = args[0] as ScreenChangedEvent
     console.log('[GameSocket] ScreenChanged', event)
     sessionStore.setScreen(event.screen as any)
   })
 
   // Player Eliminated
-  gameChannel?.listen('PlayerEliminated', (event: PlayerEliminatedEvent) => {
+  gameChannel?.listen('PlayerEliminated', (...args: unknown[]) => {
+    const event = args[0] as PlayerEliminatedEvent
     console.log('[GameSocket] PlayerEliminated', event)
     playersStore.eliminatePlayer(event.player_id)
     roundStore.recordElimination()
@@ -62,13 +65,15 @@ export function useGameWebSocket() {
   })
 
   // Round Started
-  gameChannel?.listen('RoundStarted', (event: RoundStartedEvent) => {
+  gameChannel?.listen('RoundStarted', (...args: unknown[]) => {
+    const event = args[0] as RoundStartedEvent
     console.log('[GameSocket] RoundStarted', event)
     roundStore.startRound(event.game, event.round)
   })
 
   // Game Ended
-  gameChannel?.listen('GameEnded', (event: GameEndedEvent) => {
+  gameChannel?.listen('GameEnded', (...args: unknown[]) => {
+    const event = args[0] as GameEndedEvent
     console.log('[GameSocket] GameEnded', event)
     gameStore.endGame()
     sessionStore.setScreen('winner')

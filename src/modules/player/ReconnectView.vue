@@ -51,18 +51,20 @@ function selectPlayer(playerNumber: number) {
 </script>
 
 <template>
-  <div class="reconnect-view">
-    <div class="reconnect-view__container">
-      <h1 class="reconnect-view__title">{{ $t('player.reconnect') }}</h1>
+  <div
+    class="min-h-screen flex items-center justify-center p-4 bg-linear-to-br from-primary/10 to-secondary/10"
+  >
+    <div class="max-w-4xl w-full space-y-6 bg-base-100 rounded-2xl shadow-2xl p-8">
+      <h1 class="text-4xl font-bold text-center">{{ $t('player.reconnect') }}</h1>
 
-      <p class="reconnect-view__subtitle">{{ $t('player.selectPlayer') }}</p>
+      <p class="text-center text-base-content/70">{{ $t('player.selectPlayer') }}</p>
 
       <!-- Players Grid -->
-      <div class="reconnect-view__players">
+      <div class="grid grid-cols-4 gap-4">
         <div
           v-for="player in availablePlayers"
           :key="player.id"
-          class="reconnect-view__player"
+          class="cursor-pointer transition-transform hover:scale-105"
           :class="{
             'reconnect-view__player--selected': selectedPlayerNumber === player.number,
           }"
@@ -73,7 +75,7 @@ function selectPlayer(playerNumber: number) {
       </div>
 
       <!-- PIN Input -->
-      <div v-if="selectedPlayerNumber" class="reconnect-view__pin-section">
+      <div v-if="selectedPlayerNumber" class="flex flex-col items-center gap-4 pt-6">
         <label class="form-control w-full max-w-xs">
           <div class="label">
             <span class="label-text">{{ $t('player.enterPin') }}</span>
@@ -101,40 +103,3 @@ function selectPlayer(playerNumber: number) {
     </div>
   </div>
 </template>
-
-<style scoped>
-.reconnect-view {
-  @apply min-h-screen flex items-center justify-center p-4;
-  @apply bg-linear-to-br from-primary/10 to-secondary/10;
-}
-
-.reconnect-view__container {
-  @apply max-w-4xl w-full space-y-6;
-  @apply bg-base-100 rounded-2xl shadow-2xl p-8;
-}
-
-.reconnect-view__title {
-  @apply text-4xl font-bold text-center;
-}
-
-.reconnect-view__subtitle {
-  @apply text-center text-base-content/70;
-}
-
-.reconnect-view__players {
-  @apply grid grid-cols-4 gap-4;
-}
-
-.reconnect-view__player {
-  @apply cursor-pointer transition-transform;
-  @apply hover:scale-105;
-}
-
-.reconnect-view__player--selected {
-  @apply scale-105;
-}
-
-.reconnect-view__pin-section {
-  @apply flex flex-col items-center gap-4 pt-6;
-}
-</style>

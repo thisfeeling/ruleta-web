@@ -40,6 +40,7 @@ const statusClass = computed(() => {
 </template>
 
 <style scoped>
+@reference "tailwindcss";
 .player-hub {
   @apply fixed bottom-4 left-4 z-50;
   @apply bg-base-100 rounded-xl shadow-2xl p-4;

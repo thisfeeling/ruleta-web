@@ -32,8 +32,8 @@ const gridColumns = computed(() => `repeat(${props.columns}, minmax(0, 1fr))`)
 </script>
 
 <template>
-  <div class="player-list">
-    <div class="player-list__grid" :style="{ gridTemplateColumns: gridColumns }">
+  <div class="w-full">
+    <div class="grid gap-4" :style="{ gridTemplateColumns: gridColumns }">
       <PlayerCard
         v-for="player in filteredPlayers"
         :key="player.id"
@@ -42,22 +42,8 @@ const gridColumns = computed(() => `repeat(${props.columns}, minmax(0, 1fr))`)
       />
     </div>
 
-    <div v-if="filteredPlayers.length === 0" class="player-list__empty">
+    <div v-if="filteredPlayers.length === 0" class="text-center py-8 text-base-content/60">
       <p>{{ $t('lobby.waitingForPlayers') }}</p>
     </div>
   </div>
 </template>
-
-<style scoped>
-.player-list {
-  @apply w-full;
-}
-
-.player-list__grid {
-  @apply grid gap-4;
-}
-
-.player-list__empty {
-  @apply text-center py-8 text-base-content/60;
-}
-</style>

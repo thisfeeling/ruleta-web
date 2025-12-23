@@ -54,6 +54,7 @@ function startShow() {
 </template>
 
 <style scoped>
+@reference "tailwindcss";
 .lobby-scene {
   @apply w-full;
 }

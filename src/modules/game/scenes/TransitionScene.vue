@@ -28,6 +28,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
+@reference "tailwindcss";
 .transition-scene {
   @apply w-full;
 }

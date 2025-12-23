@@ -39,69 +39,37 @@ const numberSizeClasses = computed(() => {
 
 <template>
   <div
-    class="player-card"
+    class="flex flex-col items-center gap-2 p-2 rounded-lg bg-base-200 transition-all duration-200"
     :class="[
       sizeClasses,
       {
-        'player-card--current': isCurrentPlayer,
-        'player-card--eliminated': player.is_eliminated,
+        'ring-2 ring-primary ring-offset-2': isCurrentPlayer,
+        'opacity-60 grayscale': player.is_eliminated,
       },
     ]"
   >
     <!-- Player Number Icon -->
     <div
-      class="player-card__number"
+      class="w-full aspect-square rounded-lg flex items-center justify-center font-bold text-white shadow-lg"
       :class="numberSizeClasses"
-      :style="{
-        backgroundColor: player.is_eliminated ? '#6b7280' : player.color,
-      }"
+      :style="{ backgroundColor: player.is_eliminated ? '#6b7280' : player.color }"
     >
       {{ player.number }}
     </div>
 
     <!-- Player Nickname -->
-    <div class="player-card__nickname">
+    <div
+      class="text-sm font-medium text-center truncate max-w-full flex flex-col items-center gap-1"
+    >
       {{ player.nickname }}
-      <span v-if="isCurrentPlayer" class="player-card__badge">{{ $t('player.you') }}</span>
+      <span v-if="isCurrentPlayer" class="badge badge-primary badge-xs">{{
+        $t('player.you')
+      }}</span>
     </div>
 
     <!-- Status Badge -->
-    <div v-if="showStatus && player.is_eliminated" class="player-card__status">
+    <div v-if="showStatus && player.is_eliminated" class="text-xs text-error font-semibold">
       ❌ {{ $t('player.status.eliminated') }}
     </div>
   </div>
 </template>
-
-<style scoped>
-.player-card {
-  @apply flex flex-col items-center gap-2 p-2 rounded-lg;
-  @apply bg-base-200 transition-all duration-200;
-}
-
-.player-card--current {
-  @apply ring-2 ring-primary ring-offset-2;
-}
-
-.player-card--eliminated {
-  @apply opacity-60 grayscale;
-}
-
-.player-card__number {
-  @apply w-full aspect-square rounded-lg;
-  @apply flex items-center justify-center;
-  @apply font-bold text-white shadow-lg;
-}
-
-.player-card__nickname {
-  @apply text-sm font-medium text-center truncate max-w-full;
-  @apply flex flex-col items-center gap-1;
-}
-
-.player-card__badge {
-  @apply badge badge-primary badge-xs;
-}
-
-.player-card__status {
-  @apply text-xs text-error font-semibold;
-}
-</style>
