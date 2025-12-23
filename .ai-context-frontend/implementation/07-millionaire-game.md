@@ -67,20 +67,20 @@ export interface MillionaireState {
 
 **Key Actions**:
 
-- [ ] `setQuestion(question)` - Load new question
-- [ ] `selectAnswer(index)` - Player selects answer
-- [ ] `submitAnswer()` - Send answer to server
-- [ ] `revealResult(correct)` - Show if answer was correct
-- [ ] `updateTimer(time)` - Countdown timer
-- [ ] `nextQuestion()` - Move to next question
-- [ ] `reset()` - Clear state
+- [x] `setQuestion(question)` - Load new question
+- [x] `selectAnswer(index)` - Player selects answer
+- [x] `submitAnswer()` - Send answer to server
+- [x] `revealResult(correct)` - Show if answer was correct
+- [x] `updateTimer(time)` - Countdown timer
+- [x] `nextQuestion()` - Move to next question
+- [x] `reset()` - Clear state
 
 **Checklist**:
 
-- [ ] Create store with reactive state
-- [ ] Implement all actions
-- [ ] Add computed properties (canAnswer, timeProgress, etc.)
-- [ ] Test state mutations
+- [x] Create store with reactive state
+- [x] Implement all actions
+- [x] Add computed properties (canAnswer, timeProgress, etc.)
+- [x] Test state mutations
 
 ---
 

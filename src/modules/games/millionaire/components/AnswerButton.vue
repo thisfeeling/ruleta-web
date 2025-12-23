@@ -34,32 +34,48 @@ const labels = ['A', 'B', 'C', 'D']
 
 <style scoped>
 .answer-button {
-  @apply btn btn-lg btn-outline h-auto min-h-80px;
-  @apply flex items-center gap-4 p-4;
-  @apply text-left transition-all;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  min-height: 80px;
+  width: 100%;
+  background: transparent;
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  border-radius: 0.5rem;
+  text-align: left;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .answer-button:not(:disabled):hover {
-  @apply scale-105;
+  transform: scale(1.05);
 }
 
 .answer-button--selected {
-  @apply btn-primary;
+  background: var(--color-primary, #3b82f6);
+  color: white;
 }
 
 .answer-button--correct {
-  @apply btn-success;
+  background: #16a34a;
+  color: white;
 }
 
 .answer-button--wrong {
-  @apply btn-error;
+  background: #ef4444;
+  color: white;
 }
 
 .answer-button__label {
-  @apply text-3xl font-bold;
+  font-size: 1.875rem;
+  font-weight: 700;
 }
 
 .answer-button__text {
-  @apply text-base flex-1;
+  font-size: 1rem;
+  flex: 1 1 auto;
 }
 </style>

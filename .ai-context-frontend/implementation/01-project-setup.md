@@ -417,7 +417,7 @@ npm install
 ### Step 2: Install All Dependencies
 
 ```bash
-# Run all pnpm add commands listed above
+# Run all npm add commands listed above
 ```
 
 ### Step 3: Create Folder Structure

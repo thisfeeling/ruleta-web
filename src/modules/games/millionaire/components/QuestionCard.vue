@@ -22,16 +22,29 @@ const props = defineProps<Props>()
 
 <style scoped>
 .question-card {
-  @apply relative bg-base-100 rounded-2xl shadow-2xl p-8;
-  @apply max-w-3xl w-full;
+  position: relative;
+  background: var(--color-base-100, #fff);
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 56rem;
+  width: 100%;
 }
 
 .question-card__badge {
-  @apply absolute top-4 right-4;
-  @apply badge badge-primary;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: var(--color-primary, #3b82f6);
+  color: #fff;
+  font-weight: 600;
 }
 
 .question-card__text {
-  @apply text-2xl font-semibold text-center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
 }
 </style>

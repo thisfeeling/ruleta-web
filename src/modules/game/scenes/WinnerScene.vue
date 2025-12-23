@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useSessionStore } from '@/modules/core/stores/session.store'
 import { usePlayersStore } from '@/modules/player/player.store'
 import PlayerCard from '@/modules/player/PlayerCard.vue'
 import { useAuthStore } from '@/modules/core/stores/auth.store'
 
-const sessionStore = useSessionStore()
 const playersStore = usePlayersStore()
 const authStore = useAuthStore()
 

@@ -129,6 +129,9 @@
       "categorySpun": "The roulette landed on {category}!",
       "questionTime": "Question from {category}",
       "spinning": "Spinning the wheel!",
+      "turn": "Turn",
+      "win": "You win!",
+      "lose": "You lose!",
       "category": "Category",
       "instructions": {
         "slide1": {

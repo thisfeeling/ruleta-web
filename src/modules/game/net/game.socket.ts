@@ -2,7 +2,7 @@ import { useEcho } from '@/modules/core/composables/useEcho'
 import { useGameStore } from '@/modules/game/stores/game.store'
 import { useRoundStore } from '@/modules/game/stores/round.store'
 import { usePlayersStore } from '@/modules/player/player.store'
-import { useSessionStore } from '@/modules/core/stores/session.store'
+import { useSessionStore, type GameScreen } from '@/modules/core/stores/session.store'
 import { audioService } from '@/modules/core/services/audio.service'
 import type {
   GameStartedEvent,
@@ -44,7 +44,7 @@ export function useGameWebSocket() {
   gameChannel?.listen('ScreenChanged', (...args: unknown[]) => {
     const event = args[0] as ScreenChangedEvent
     console.log('[GameSocket] ScreenChanged', event)
-    sessionStore.setScreen(event.screen as any)
+    sessionStore.setScreen(event.screen as GameScreen)
   })
 
   // Player Eliminated

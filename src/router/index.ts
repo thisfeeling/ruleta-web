@@ -33,6 +33,36 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/game/rope',
+    name: 'rope',
+    component: () => import('@/modules/games/rope/RopeScene.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/game/spell',
+    name: 'spell',
+    component: () => import('@/modules/games/spell/SpellScene.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/game/roulette',
+    name: 'roulette',
+    component: () => import('@/modules/games/roulette/RouletteScene.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/game/word-search',
+    name: 'word-search',
+    component: () => import('@/modules/games/word-search/WordSearchScene.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/game/flappy',
+    name: 'flappy',
+    component: () => import('@/modules/games/flappy/FlappyScene.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/supervisor',
     name: 'supervisor',
     component: () => import('@/views/SupervisorView.vue'),

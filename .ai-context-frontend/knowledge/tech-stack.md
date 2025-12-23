@@ -214,7 +214,7 @@
 ### Node & Package Manager
 
 - **Node.js**: `^20.19.0 || >=22.12.0`
-- **npm** o **pnpm**: Gestión de paquetes
+- **npm**: Gestión de paquetes
 
 ### TypeScript
 

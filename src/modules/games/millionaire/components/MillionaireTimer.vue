@@ -31,18 +31,29 @@ const isLowTime = computed(() => props.timeLeft <= 10)
 
 <style scoped>
 .millionaire-timer {
-  @apply flex flex-col items-center gap-2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .millionaire-timer__value {
-  @apply text-3xl font-mono font-bold text-white;
+  font-size: 1.875rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+  font-weight: 700;
+  color: #fff;
 }
 
 .millionaire-timer__bar {
-  @apply w-32 h-3 bg-base-300 rounded-full overflow-hidden;
+  width: 8rem;
+  height: 0.75rem;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
 }
 
 .millionaire-timer__progress {
-  @apply h-full transition-all duration-1000 ease-linear;
+  height: 100%;
+  transition: width 1s linear;
 }
 </style>

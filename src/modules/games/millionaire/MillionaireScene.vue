@@ -71,31 +71,57 @@ function handleAnswerSelect(index: number) {
 
 <style scoped>
 .millionaire-scene {
-  @apply min-h-screen flex flex-col items-center justify-center p-8;
-  @apply bg-linear-to-b from-purple-900 to-blue-900;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #6b21a8, #1e3a8a);
 }
 
 .millionaire-scene__hud {
-  @apply fixed top-4 left-0 right-0;
-  @apply flex justify-between items-center px-8;
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .millionaire-scene__question-number {
-  @apply text-xl font-bold text-white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #fff;
 }
 
 .millionaire-scene__score {
-  @apply text-xl font-bold text-white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #fff;
 }
 
 .millionaire-scene__answers {
-  @apply grid grid-cols-2 gap-4 mt-8 w-full max-w-4xl;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 56rem;
 }
 
 .millionaire-scene__result {
-  @apply fixed inset-0 flex items-center justify-center;
-  @apply bg-base-100/80 backdrop-blur-sm;
-  @apply pointer-events-none;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
 }
 
 .fade-enter-active,

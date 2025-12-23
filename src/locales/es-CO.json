@@ -129,6 +129,9 @@
       "categorySpun": "¡La ruleta cayó en {category}!",
       "questionTime": "Pregunta de {category}",
       "spinning": "¡Girando la ruleta!",
+      "turn": "Turno",
+      "win": "¡Ganaste!",
+      "lose": "¡Perdiste!",
       "category": "Categoría",
       "instructions": {
         "slide1": {

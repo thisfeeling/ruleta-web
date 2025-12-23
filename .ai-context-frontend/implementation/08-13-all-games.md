@@ -1,6 +1,6 @@
 # 08-13 - Juegos Principales (Rope, Spell, Roulette) y Bonus
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Completed | [ ] Tested
+**Status**: [x] Completed
 
 ---
 
@@ -29,11 +29,11 @@ src/modules/games/rope/
 
 ### Key Features
 
-- [ ] **Grouping Algorithm**: Divide jugadores en grupos (2-4 jugadores por grupo)
-- [ ] **Voting System**: Cada jugador vota a quién jalar (opcional)
-- [ ] **Click Battle**: Jugadores hacen clic rápido para aumentar tensión
-- [ ] **Three.js Visual**: Cuerda 3D que se tensa según clics acumulados
-- [ ] **Group Elimination**: Grupo perdedor eliminado completo
+- [x] **Grouping Algorithm**: Divide jugadores en grupos (2-4 jugadores por grupo)
+- [x] **Voting System**: Cada jugador vota a quién jalar (opcional)
+- [x] **Click Battle**: Jugadores hacen clic rápido para aumentar tensión
+- [x] **Three.js Visual**: Cuerda 3D que se tensa según clics acumulados
+- [x] **Group Elimination**: Grupo perdedor eliminado completo
 
 ### Store Structure
 
@@ -132,11 +132,11 @@ recorder.start()
 
 ### WebSocket Events
 
-- [ ] `PlayerSelected` - Turno de jugador
-- [ ] `WordAssigned` - Palabra a deletrear
-- [ ] `AudioUploaded` - Audio enviado, esperando validación
-- [ ] `AudioValidated` - Supervisor aprobó/rechazó
-- [ ] `BombExploded` - Jugador eliminado
+- [x] `PlayerSelected` - Turno de jugador
+- [x] `WordAssigned` - Palabra a deletrear
+- [x] `AudioUploaded` - Audio enviado, esperando validación
+- [x] `AudioValidated` - Supervisor aprobó/rechazó
+- [x] `BombExploded` - Jugador eliminado
 
 ---
 
@@ -185,10 +185,10 @@ interface RouletteState {
 
 ### WebSocket Events
 
-- [ ] `SpinStarted` - Jugador gira
-- [ ] `SpinResult` - Resultado (win/lose)
-- [ ] `PlayerEliminated` - Jugador eliminado
-- [ ] `WinnerDeclared` - Ganador final
+- [x] `SpinStarted` - Jugador gira
+- [x] `SpinResult` - Resultado (win/lose)
+- [x] `PlayerEliminated` - Jugador eliminado
+- [x] `WinnerDeclared` - Ganador final
 
 ---
 
@@ -212,12 +212,12 @@ src/modules/games/word-search/
 
 ### Key Features
 
-- [ ] **Non-Elimination**: Nadie es eliminado, solo puntos
-- [ ] **15×15 Grid**: HTML/CSS Grid, no canvas
-- [ ] **Drag Selection**: Click + drag para seleccionar palabras
-- [ ] **8 Direcciones**: Horizontal, vertical, diagonal (4 direcciones diagonales)
-- [ ] **Time Limit**: 3-5 minutos
-- [ ] **Scoring**: Puntos por palabra encontrada
+- [x] **Non-Elimination**: Nadie es eliminado, solo puntos
+- [x] **15×15 Grid**: HTML/CSS Grid, no canvas
+- [x] **Drag Selection**: Click + drag para seleccionar palabras
+- [x] **8 Direcciones**: Horizontal, vertical, diagonal (4 direcciones diagonales)
+- [x] **Time Limit**: 3-5 minutos
+- [x] **Scoring**: Puntos por palabra encontrada
 
 ### Store Structure
 
@@ -263,9 +263,9 @@ function fillEmptyCells() {
 
 ### WebSocket Events
 
-- [ ] `GridGenerated` - Sopa de letras generada
-- [ ] `WordFound` - Jugador encontró palabra
-- [ ] `GameCompleted` - Tiempo agotado
+- [x] `GridGenerated` - Sopa de letras generada
+- [x] `WordFound` - Jugador encontró palabra
+- [x] `GameCompleted` - Tiempo agotado
 
 ---
 
@@ -337,9 +337,9 @@ const config: Phaser.Types.Core.GameConfig = {
 
 ### WebSocket Events
 
-- [ ] `GameStarted` - Juego bonus iniciado
-- [ ] `GameEnded` - Jugador chocó
-- [ ] `ScoreSubmitted` - Score enviado a scoreboard
+- [x] `GameStarted` - Juego bonus iniciado
+- [x] `GameEnded` - Jugador chocó
+- [x] `ScoreSubmitted` - Score enviado a scoreboard
 
 ---
 
@@ -417,8 +417,8 @@ onUnmounted(() => {
 ### Setup
 
 ```bash
-pnpm add three @tresjs/core @tresjs/cientos
-pnpm add -D @types/three
+npm add three @tresjs/core @tresjs/cientos
+npm add -D @types/three
 ```
 
 ### Component Pattern
@@ -458,35 +458,35 @@ onUnmounted(() => {
 
 ### For Each Game
 
-- [ ] Store manages game state correctly
-- [ ] WebSocket events update store in real-time
-- [ ] UI reflects state changes
-- [ ] Audio plays on key events
-- [ ] Animations smooth and performant
-- [ ] Scene cleanup on unmount (no memory leaks)
-- [ ] Integration with scoreboard system
-- [ ] Elimination logic works (if applicable)
+- [x] Store manages game state correctly
+- [x] WebSocket events update store in real-time
+- [x] UI reflects state changes
+- [x] Audio plays on key events
+- [x] Animations smooth and performant
+- [x] Scene cleanup on unmount (no memory leaks)
+- [x] Integration with scoreboard system
+- [x] Elimination logic works (if applicable)
 
 ### Specific to Bonus Games
 
-- [ ] No elimination occurs
-- [ ] Scores submitted to scoreboard
-- [ ] Can be started by supervisor at any time
-- [ ] All players participate simultaneously
+- [x] No elimination occurs
+- [x] Scores submitted to scoreboard
+- [x] Can be started by supervisor at any time
+- [x] All players participate simultaneously
 
 ### Three.js Games (Rope & Spell)
 
-- [ ] Visual renders correctly
-- [ ] No memory leaks (proper cleanup)
-- [ ] Performance >30 FPS on average hardware
-- [ ] Syncs with WebSocket state
+- [x] Visual renders correctly
+- [x] No memory leaks (proper cleanup)
+- [x] Performance >30 FPS on average hardware
+- [x] Syncs with WebSocket state
 
 ### Phaser Game (Flappy)
 
-- [ ] Game runs smoothly in Phaser canvas
-- [ ] Vue HUD overlays correctly
-- [ ] Score calculated from survival time
-- [ ] Clean destroy on unmount
+- [x] Game runs smoothly in Phaser canvas
+- [x] Vue HUD overlays correctly
+- [x] Score calculated from survival time
+- [x] Clean destroy on unmount
 
 ---
 

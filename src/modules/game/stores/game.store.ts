@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { GameState as GameStateType } from '@/modules/game/engine/state-machine'
 
 export interface GameGlobalState {
   id: string

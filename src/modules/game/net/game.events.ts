@@ -15,7 +15,7 @@ export interface PlayerEliminatedEvent {
 
 export interface ScreenChangedEvent {
   screen: string
-  params?: Record<string, any>
+  params?: Record<string, unknown>
 }
 
 export interface RoundStartedEvent {

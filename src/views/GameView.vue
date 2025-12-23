@@ -44,15 +44,24 @@ import { useSessionStore } from '@/modules/core/stores/session.store'
 import { useGameWebSocket } from '@/modules/game/net/game.socket'
 
 // Scenes
-import LobbyScene from '@/modules/game/scenes/LobbyScene.vue'
-import TransitionScene from '@/modules/game/scenes/TransitionScene.vue'
-import MillionaireScene from '@/modules/games/millionaire/MillionaireScene.vue'
-import RopeScene from '@/modules/games/rope/RopeScene.vue'
-import SpellScene from '@/modules/games/spell/SpellScene.vue'
-import RouletteScene from '@/modules/games/roulette/RouletteScene.vue'
-import WordSearchScene from '@/modules/games/word-search/WordSearchScene.vue'
-import FlappyScene from '@/modules/games/flappy/FlappyScene.vue'
-import WinnerScene from '@/modules/game/scenes/WinnerScene.vue'
+import { defineAsyncComponent } from 'vue'
+const LobbyScene = defineAsyncComponent(() => import('@/modules/game/scenes/LobbyScene.vue'))
+const TransitionScene = defineAsyncComponent(
+  () => import('@/modules/game/scenes/TransitionScene.vue'),
+)
+const MillionaireScene = defineAsyncComponent(
+  () => import('@/modules/games/millionaire/MillionaireScene.vue'),
+)
+const RopeScene = defineAsyncComponent(() => import('@/modules/games/rope/RopeScene.vue'))
+const SpellScene = defineAsyncComponent(() => import('@/modules/games/spell/SpellScene.vue'))
+const RouletteScene = defineAsyncComponent(
+  () => import('@/modules/games/roulette/RouletteScene.vue'),
+)
+const WordSearchScene = defineAsyncComponent(
+  () => import('@/modules/games/word-search/WordSearchScene.vue'),
+)
+const FlappyScene = defineAsyncComponent(() => import('@/modules/games/flappy/FlappyScene.vue'))
+const WinnerScene = defineAsyncComponent(() => import('@/modules/game/scenes/WinnerScene.vue'))
 
 import ScoreboardCompact from '@/modules/game/scoreboard/ScoreboardCompact.vue'
 
@@ -64,7 +73,9 @@ const sessionStore = useSessionStore()
 // Dev helpers
 const DEV = import.meta.env.DEV
 
-function setScreen(screen: any) {
+import type { GameScreen } from '@/modules/core/stores/session.store'
+
+function setScreen(screen: GameScreen) {
   sessionStore.setScreen(screen)
 }
 

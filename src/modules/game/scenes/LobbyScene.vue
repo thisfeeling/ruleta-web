@@ -3,12 +3,10 @@ import { computed } from 'vue'
 import PlayerList from '@/modules/player/PlayerList.vue'
 import ChatBox from '@/modules/chat/ChatBox.vue'
 import { useSessionStore } from '@/modules/core/stores/session.store'
-import { usePlayersStore } from '@/modules/player/player.store'
 import { useAuthStore } from '@/modules/core/stores/auth.store'
 import { useGameStore } from '@/modules/game/stores/game.store'
 
 const sessionStore = useSessionStore()
-const playersStore = usePlayersStore()
 const authStore = useAuthStore()
 const gameStore = useGameStore()
 

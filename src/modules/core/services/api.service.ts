@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { storageService } from '@/modules/core/services/storage.service'
 
 export class ApiService {
   private client: AxiosInstance
@@ -43,10 +44,12 @@ export class ApiService {
             localStorage.removeItem('auth_token')
           } catch {}
 
-          // Clear saved session if available (lazy import to avoid cycles)
-          void import('@/modules/core/services/storage.service')
-            .then((m) => m.storageService?.clearPlayerSession?.())
-            .catch(() => {})
+          // Clear saved session if available
+          try {
+            storageService.clearPlayerSession()
+          } catch {
+            // ignore failures — we already attempted a static import
+          }
 
           try {
             if (typeof window !== 'undefined') window.location.href = '/'
