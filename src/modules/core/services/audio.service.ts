@@ -173,18 +173,30 @@ export class AudioService {
   }
 
   async preload(urls: string[]): Promise<void> {
-    const promises = urls.map(async (url) => {
-      try {
-        const res = await fetch(url)
-        const arrayBuffer = await res.arrayBuffer()
-        await this.context.decodeAudioData(arrayBuffer)
-      } catch (err: unknown) {
-        console.warn('[Audio] Failed to preload', url, err)
-      }
-    })
+    const results = await Promise.all(
+      urls.map(async (url) => {
+        try {
+          const res = await fetch(url)
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          const arrayBuffer = await res.arrayBuffer()
+          await this.context.decodeAudioData(arrayBuffer)
+          return { url, ok: true }
+        } catch (err: unknown) {
+          // Decoding failures can happen in dev / preview environments; log at debug level
+          // to avoid cluttering the console for end users.
 
-    await Promise.all(promises)
-    console.log(`[Audio] Preloaded ${urls.length} tracks`)
+          console.debug('[Audio] Failed to preload', url, err)
+          return { url, ok: false, err }
+        }
+      }),
+    )
+
+    const successes = results.filter((r) => r.ok).length
+    const failures = results.length - successes
+    // Use debug so non-critical preload failures don't show as warnings in dev consoles
+    // (they can still be inspected by enabling verbose logging).
+
+    console.debug(`[Audio] Preloaded ${successes}/${urls.length} tracks (${failures} failed)`)
   }
 }
 

@@ -58,7 +58,10 @@ try {
     console.warn('[main] Failed to register game socket listeners', e)
   }
 } catch (e) {
-  console.warn('[main] Echo init failed', e)
+  // Non-fatal: If Reverb isn't running during local dev/preview, initialize() may fail.
+  // Log at debug level to avoid alarming end-users while keeping the info for devs.
+   
+  console.debug('[main] Echo init failed', e)
 }
 
 // Preload critical audio assets

@@ -44,17 +44,50 @@ export class EchoService {
     const REVERB_PATH = import.meta.env.VITE_REVERB_PATH ?? import.meta.env.REVERB_PATH ?? '/ws'
     const FORCE_TLS = REVERB_SCHEME === 'https'
 
-    this.echo = new Echo({
-      broadcaster: 'reverb',
-      key: REVERB_KEY,
-      wsHost: REVERB_HOST,
-      wsPort: REVERB_PORT,
-      wssPort: REVERB_PORT,
-      forceTLS: FORCE_TLS,
-      enabledTransports: ['ws', 'wss'],
-      // Reverb path (e.g. '/ws') — depending on Echo connector this may be used as `path` or `wsPath`.
-      path: REVERB_PATH,
-    }) as unknown as EchoLike
+    try {
+      this.echo = new Echo({
+        broadcaster: 'reverb',
+        key: REVERB_KEY,
+        wsHost: REVERB_HOST,
+        wsPort: REVERB_PORT,
+        wssPort: REVERB_PORT,
+        forceTLS: FORCE_TLS,
+        enabledTransports: ['ws', 'wss'],
+        // Reverb path (e.g. '/ws') — depending on Echo connector this may be used as `path` or `wsPath`.
+        path: REVERB_PATH,
+      }) as unknown as EchoLike
+
+      // Try to access the connector to eagerly surface incompatible broadcasters
+      // and avoid unhandled errors bubbling to the top-level. If Echo throws
+      // because it expects a Pusher client (and none is present), we catch it
+      // and log a friendly message.
+      try {
+        // some connector implementations will throw during construction/connect
+        // access a known property to trigger the initialization
+        const echoConnectorCheck = this.echo as unknown as { connector?: unknown } | null
+        if (echoConnectorCheck && echoConnectorCheck.connector) {
+          // noop - connector created
+        }
+      } catch (innerErr) {
+        console.warn('[Echo] Connector initialization warning:', innerErr)
+      }
+    } catch (err: unknown) {
+      // If Echo attempted to use Pusher (and pusher-js isn't present), it will
+      // throw an error like "Pusher client not found". We treat that as a non-fatal
+      // initialization failure and intentionally avoid alarming console output in dev.
+      if (import.meta.env.PROD) {
+        // In production environments we want a warning so issues surface in logs
+        console.warn('[Echo] Failed to initialize Echo client (Reverb may be unavailable):', err)
+      } else {
+        // Quiet in dev by default; use debug if developers need more info
+        if ((import.meta.env as unknown as { VITE_DEBUG_ECHO?: string }).VITE_DEBUG_ECHO === '1') {
+          console.debug('[Echo][debug] Initialization failed (dev):', err)
+        }
+      }
+
+      this.echo = null
+      return null
+    }
 
     // Setup connection listeners for reconnection/backoff
     this.setupConnectionListeners()

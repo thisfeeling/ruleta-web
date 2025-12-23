@@ -8,7 +8,8 @@ export function registerPlayerSocketListeners() {
   try {
     channel = echoService.listenToChannel('game.show')
   } catch {
-    console.warn('[PlayerSocket] Echo not initialized, skipping listeners')
+    // Echo may not be initialized in local/dev preview. Use debug level to avoid noise.
+    console.debug('[PlayerSocket] Echo not initialized, skipping listeners')
     return
   }
 

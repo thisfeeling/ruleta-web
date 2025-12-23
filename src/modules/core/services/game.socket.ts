@@ -8,7 +8,10 @@ export function registerGameSocketListeners() {
   try {
     channel = echoService.listenToChannel('game.show')
   } catch {
-    console.warn('[GameSocket] Echo not initialized, skipping listeners')
+    // Echo is optional in dev environments when Reverb is not running; skip listeners silently.
+    // Use debug level to avoid spamming the console in preview/dev environments.
+
+    console.debug('[GameSocket] Echo not initialized, skipping listeners')
     return
   }
 
