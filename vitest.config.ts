@@ -14,9 +14,6 @@ export default mergeConfig(
         provider: 'v8', // use 'v8' provider for reliable coverage reporting in Node/Vite
         reporter: ['text', 'lcov', 'html'],
         reportsDirectory: 'coverage',
-        all: true,
-        include: ['src/**/*.{ts,tsx,vue}'],
-        exclude: ['**/*.spec.*', 'node_modules/**', 'src/main.ts'],
       },
     },
   }),

@@ -12,6 +12,7 @@ describe('ElevenLabsService', () => {
   it('requests TTS from backend and returns url', async () => {
     const url = await elevenLabsService.requestTTS('hola')
     expect(url).toEqual('https://example.com/tts.mp3')
-    expect(apiService.post as any).toHaveBeenCalled()
+    // apiService.post is mocked with vi.fn(), cast to Vitest Mock for assertion
+    expect(apiService.post as unknown as ReturnType<typeof vi.fn>).toHaveBeenCalled()
   })
 })

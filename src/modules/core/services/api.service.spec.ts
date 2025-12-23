@@ -14,7 +14,6 @@ vi.mock('axios', () => {
 })
 
 import { apiService } from './api.service'
-import axios from 'axios'
 
 describe('ApiService', () => {
   beforeEach(() => {

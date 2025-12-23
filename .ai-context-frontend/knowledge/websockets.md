@@ -104,12 +104,7 @@ Echo es el **cliente JavaScript** que conecta con servidores WebSocket de Larave
 npm install laravel-echo
 ```
 
-**NO instalar**:
-
-```bash
-# ❌ Esto es SOLO para Pusher, no para Reverb
-npm install pusher-js
-```
+**Nota**: No instales `pusher-js` si tu backend usa Reverb — con Reverb solo se requiere `laravel-echo`.
 
 ### Configuración en Vue 3
 
