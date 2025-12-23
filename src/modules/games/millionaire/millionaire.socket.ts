@@ -15,11 +15,19 @@ interface TimerUpdateEvent {
   time_left: number
 }
 
+import { onUnmounted } from 'vue'
+
 export function useMillionaireWebSocket() {
   const store = useMillionaireStore()
-  const { channel } = useEcho()
+  const { channel, leave } = useEcho()
 
-  const gameChannel = channel('game.millionaire')
+  const channelName = 'game.millionaire'
+  const gameChannel = channel(channelName)
+
+  onUnmounted(() => {
+    // ensure we leave the channel and cleanup listeners
+    leave(channelName)
+  })
 
   gameChannel?.listen('QuestionReceived', (...args: unknown[]) => {
     const event = args[0] as QuestionReceivedEvent

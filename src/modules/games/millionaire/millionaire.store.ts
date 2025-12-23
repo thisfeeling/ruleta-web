@@ -48,10 +48,25 @@ export const useMillionaireStore = defineStore('millionaire', () => {
     selectedAnswer.value = index
   }
 
-  function submitAnswer() {
+  async function submitAnswer() {
     if (isAnswered.value || selectedAnswer.value === null || !currentQuestion.value) return
-    // optimistic: mark as answered and wait for server AnswerResult event
+
     isAnswered.value = true
+
+    try {
+      // send to backend
+      const payload = {
+        question_id: currentQuestion.value.id,
+        answer_index: selectedAnswer.value,
+      }
+      // lazy import to avoid cycles in tests
+      const { apiService } = await import('@/modules/core/services/api.service')
+      await apiService.post('/games/millionaire/answer', payload)
+    } catch (e) {
+      // network failed — keep optimistic state but log
+      // Optionally revert isAnswered if needed
+      console.error('[MillionaireStore] submitAnswer failed', e)
+    }
   }
 
   function revealResult(correct: boolean) {

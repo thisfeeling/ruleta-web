@@ -1,6 +1,6 @@
 # 07 - Millionaire Game Implementation
 
-**Status**: [ ] Completed
+**Status**: [x] Completed
 
 ---
 
@@ -12,12 +12,12 @@ Juego de preguntas y respuestas tipo "¿Quién quiere ser millonario?" con elimi
 
 ## 🎯 Objectives
 
-- [ ] Implementar millionaire.store.ts
-- [ ] Implementar millionaire.logic.ts (validación, scoring)
-- [ ] Implementar millionaire.socket.ts (WebSocket)
-- [ ] Implementar millionaire.audio.ts (sonidos del juego)
-- [ ] Crear MillionaireScene.vue (escena principal)
-- [ ] Crear componentes UI (QuestionCard, AnswerButton, Timer)
+- [x] Implementar millionaire.store.ts
+- [x] Implementar millionaire.logic.ts (validación, scoring)
+- [x] Implementar millionaire.socket.ts (WebSocket)
+- [x] Implementar millionaire.audio.ts (sonidos del juego)
+- [x] Crear MillionaireScene.vue (escena principal)
+- [x] Crear componentes UI (QuestionCard, AnswerButton, Timer)
 
 ---
 
@@ -116,11 +116,11 @@ export function shouldEliminate(
 
 **Checklist**:
 
-- [ ] Implement answer validation
-- [ ] Implement score calculation
-- [ ] Implement elimination logic
-- [ ] Add helper functions
-- [ ] Write unit tests
+- [x] Implement answer validation
+- [x] Implement score calculation
+- [x] Implement elimination logic
+- [x] Add helper functions
+- [x] Write unit tests
 
 ---
 
@@ -167,18 +167,18 @@ export function useMillionaireWebSocket() {
 
 **Events to Listen**:
 
-- [ ] `QuestionReceived` - New question
-- [ ] `AnswerResult` - Answer validation result
-- [ ] `TimerUpdate` - Countdown updates
-- [ ] `RoundComplete` - All questions answered
+- [x] `QuestionReceived` - New question
+- [x] `AnswerResult` - Answer validation result
+- [x] `TimerUpdate` - Countdown updates
+- [x] `RoundComplete` - All questions answered
 
 **Checklist**:
 
-- [ ] Create composable for WebSocket
-- [ ] Listen to all events
-- [ ] Update store on events
-- [ ] Play sounds on events
-- [ ] Handle cleanup
+- [x] Create composable for WebSocket
+- [x] Listen to all events
+- [x] Update store on events
+- [x] Play sounds on events
+- [x] Handle cleanup
 
 ---
 
@@ -258,12 +258,12 @@ export function useMillionaireAudio() {
 
 **Audio Files Needed**:
 
-- [ ] `millionaire-theme.mp3` - Background music
-- [ ] `question.mp3` - Question appears
-- [ ] `select.mp3` - Answer selected
-- [ ] `correct.mp3` - Correct answer
-- [ ] `wrong.mp3` - Wrong answer
-- [ ] `tick.mp3` - Timer tick (last 10 seconds)
+- [x] `millionaire-theme.mp3` - Background music
+- [x] `question.mp3` - Question appears
+- [x] `select.mp3` - Answer selected
+- [x] `correct.mp3` - Correct answer
+- [x] `wrong.mp3` - Wrong answer
+- [x] `tick.mp3` - Timer tick (last 10 seconds)
 
 ---
 
@@ -383,14 +383,14 @@ function handleAnswerSelect(index: number) {
 
 **Checklist**:
 
-- [ ] Create scene component
-- [ ] Display question and answers
-- [ ] Handle answer selection
-- [ ] Show timer
-- [ ] Display result feedback
-- [ ] Play theme music on mount
-- [ ] Stop music on unmount
-- [ ] Reset store on unmount
+- [x] Create scene component
+- [x] Display question and answers
+- [x] Handle answer selection
+- [x] Show timer
+- [x] Display result feedback
+- [x] Play theme music on mount
+- [x] Stop music on unmount
+- [x] Reset store on unmount
 
 ---
 
@@ -565,17 +565,17 @@ const isLowTime = computed(() => props.timeLeft <= 10)
 
 ## ✅ Acceptance Criteria
 
-- [ ] Store manages question state correctly
-- [ ] Players can select and submit answers
-- [ ] Timer counts down and updates UI
-- [ ] Answer validation works (correct/incorrect)
-- [ ] Sound effects play on events
-- [ ] Theme music plays during game
-- [ ] WebSocket events update store
-- [ ] UI shows result feedback
-- [ ] Elimination calculated based on incorrect answers
-- [ ] Score calculated and sent to scoreboard
-- [ ] Scene cleans up on unmount
+- [x] Store manages question state correctly
+- [x] Players can select and submit answers
+- [x] Timer counts down and updates UI
+- [x] Answer validation works (correct/incorrect)
+- [x] Sound effects play on events
+- [x] Theme music plays during game
+- [x] WebSocket events update store
+- [x] UI shows result feedback
+- [x] Elimination calculated based on incorrect answers
+- [x] Score calculated and sent to scoreboard
+- [x] Scene cleans up on unmount
 
 ---
 
