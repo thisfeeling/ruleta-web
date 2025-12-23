@@ -59,7 +59,8 @@ export class EchoService {
       if (typeof conn !== 'object' || conn === null) return undefined
       const c = conn as Record<string, unknown>
       const maybePusher = c.pusher as Record<string, unknown> | undefined
-      if (maybePusher && typeof maybePusher.connection !== 'undefined') return maybePusher.connection
+      if (maybePusher && typeof maybePusher.connection !== 'undefined')
+        return maybePusher.connection
       if (typeof c.socket !== 'undefined') return c.socket
       const maybeReverb = c.reverb as Record<string, unknown> | undefined
       if (maybeReverb && typeof maybeReverb.socket !== 'undefined') return maybeReverb.socket
