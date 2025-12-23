@@ -2,34 +2,47 @@
 import { useSupervisorStore } from './supervisor.store'
 import { useApi } from '@/modules/core/composables/useApi'
 import { useUIStore } from '@/modules/core/stores/ui.store'
+import { approveAudio, rejectAudio } from './supervisor.api'
+import { ref } from 'vue'
 
 const store = useSupervisorStore()
 const api = useApi()
 const uiStore = useUIStore()
 
-async function approve(validationId: string) {
+const loading = ref<Record<string, boolean>>({})
+
+async function approve(validationId: string, audioPlayId?: number) {
   try {
-    await api.post(`/api/supervisor/validate-audio/${validationId}`, {
-      approved: true,
-    })
+    loading.value[validationId] = true
+    if (audioPlayId) {
+      await approveAudio(Number(audioPlayId))
+    } else {
+      await api.post(`/api/supervisor/validate-audio/${validationId}`, { approved: true })
+    }
+
     store.removeValidation(validationId)
     uiStore.success('Audio aprobado')
   } catch (error: any) {
     const status = error?.response?.status
     if (status === 403) {
       uiStore.error('No autorizado')
-      // Optionally disable actions, but here we just surface error
       return
     }
     uiStore.error('Error al aprobar')
+  } finally {
+    loading.value[validationId] = false
   }
 }
 
-async function reject(validationId: string) {
+async function reject(validationId: string, audioPlayId?: number) {
   try {
-    await api.post(`/api/supervisor/validate-audio/${validationId}`, {
-      approved: false,
-    })
+    loading.value[validationId] = true
+    if (audioPlayId) {
+      await rejectAudio(Number(audioPlayId))
+    } else {
+      await api.post(`/api/supervisor/validate-audio/${validationId}`, { approved: false })
+    }
+
     store.removeValidation(validationId)
     uiStore.warning('Audio rechazado')
   } catch (error: any) {
@@ -39,6 +52,8 @@ async function reject(validationId: string) {
       return
     }
     uiStore.error('Error al rechazar')
+  } finally {
+    loading.value[validationId] = false
   }
 }
 </script>
@@ -73,11 +88,19 @@ async function reject(validationId: string) {
         </audio>
 
         <div class="audio-review__actions">
-          <button class="btn btn-success btn-sm" @click="approve(validation.id)">
-            {{ $t('supervisor.approve') }}
+          <button
+            class="btn btn-success btn-sm"
+            :disabled="loading[validation.id]"
+            @click="approve(validation.id, validation.audio_play_id)"
+          >
+            {{ loading[validation.id] ? $t('supervisor.processing') : $t('supervisor.approve') }}
           </button>
-          <button class="btn btn-error btn-sm" @click="reject(validation.id)">
-            {{ $t('supervisor.reject') }}
+          <button
+            class="btn btn-error btn-sm"
+            :disabled="loading[validation.id]"
+            @click="reject(validation.id, validation.audio_play_id)"
+          >
+            {{ loading[validation.id] ? $t('supervisor.processing') : $t('supervisor.reject') }}
           </button>
         </div>
       </div>

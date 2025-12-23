@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 export interface PendingValidation {
   id: string
+  audio_play_id?: number
   player_id: number
   player_number: number
   nickname: string

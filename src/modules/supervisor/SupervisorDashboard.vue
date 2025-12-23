@@ -5,6 +5,7 @@ import { useApi } from '@/modules/core/composables/useApi'
 import { useUIStore } from '@/modules/core/stores/ui.store'
 import AudioReview from './AudioReview.vue'
 import PlayerTimeline from './PlayerTimeline.vue'
+import SupervisorControls from './SupervisorControls.vue'
 
 const authStore = useAuthStore()
 const gameStore = useGameStore()
@@ -63,17 +64,11 @@ async function endGame() {
     <div class="supervisor-dashboard__controls">
       <h2 class="text-xl font-bold">{{ $t('supervisor.controls') }}</h2>
       <div class="flex gap-4">
-        <button class="btn btn-primary" @click="startGame">
-          {{ $t('supervisor.startGame') }}
-        </button>
-        <button class="btn btn-secondary" @click="nextRound">
-          {{ $t('supervisor.nextRound') }}
-        </button>
-        <button class="btn btn-accent" @click="startBonusGame('word-search')">¡A Buscar!</button>
-        <button class="btn btn-accent" @click="startBonusGame('flappy')">No Lo Choques</button>
-        <button class="btn btn-error" @click="endGame">
-          {{ $t('supervisor.endGame') }}
-        </button>
+        <SupervisorControls />
+        <div class="ml-auto flex gap-2">
+          <button class="btn btn-accent" @click="startBonusGame('word-search')">¡A Buscar!</button>
+          <button class="btn btn-accent" @click="startBonusGame('flappy')">No Lo Choques</button>
+        </div>
       </div>
     </div>
 
